@@ -34,20 +34,35 @@
 	</body>
 </html>
 
-<script src="/.wafle/run.js"></script>
+<script src="/_wafle/run.js"></script>
 
 <script>
-	
-	console.log("Начало кода страницы");
 
-	var testString = "Тестовая строка";
-	console.log(`Строка: ${testString}`);
 
-	// Изменение элемента
-	var textElem = document.getElementById("test-name");
-	textElem.innerText = "Новая надпись! ^-^";
+	// Код страницы
+	var loadPageCode = async function() {
+		console.log("Начало кода страницы");
 
-	console.log("Конец кода страницы");
+		var testString = "Тестовая строка";
+		console.log(`Строка: ${testString}`);
+
+		// Изменение элемента
+		var textElem = document.getElementById("test-name");
+		textElem.innerText = "Новая надпись! ^-^";
+
+		console.log("Конец кода страницы");
+	}
+
+
+	// Загрузка сайта вместе с ядром
+	var loadSite = async function () {
+		await wafle.load();
+		loadPageCode();
+	}
+
+
+	// Запуск
+	loadSite();
 
 </script>
 

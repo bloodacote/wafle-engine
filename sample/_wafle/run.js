@@ -23,6 +23,31 @@ class WafleCore {
 		};
 
 	}
+
+
+	// Здесь будет загрузка ядра
+	load() {
+		console.warn("[WAFLE] Скрипт загрузки ядра не инициализирован!");
+	}
+
+
+	// Стилизованный вывод в консоль
+	log(text) {
+		if (this.options.consolePrint == true) {
+			console.log( "%c" + text, `
+				background-color: #251b11;
+				border-left: 2px solid #cf9458;
+				border-radius: 0px 3px 3px 0px;
+
+				padding: 3px 5px;
+				padding-left: 8px;
+				margin: 0;
+
+				color: #cf9458;
+				font-size: 12pt;
+			`);
+		}
+	}
 }
 
 
@@ -46,12 +71,21 @@ async function loadScript(url) {
 }
 
 
+
+
+
 // - - - - - - - - - - - -
 // Инициализация ядра
 var wafle = new WafleCore();
 
-if (wafle.options.consolePrint == true) {
-	console.log("[WAFLE LOADED]");
-}
 
-loadScript("/_wafle/sample.js");
+// Создаём скрипт загрузки ядра (снизу удобнее редактировать инициализацию)
+wafle.load = async function() {
+	return new Promise(async function (resolve, reject) {
+
+		await loadScript("/_wafle/sample.js");
+
+		wafle.log("Ядро Wafle загружено! :)");
+		resolve(true);
+	});
+}
