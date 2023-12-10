@@ -17,10 +17,16 @@ class WafleCore {
 		// Базовые данные
 		this.version = "alpha";
 		this.creator = "Bloodacote";
+		this.options = {
+			consolePrint: true
+		};
 
 	}
 }
 
 // Инициализация ядра
 var wafle = new WafleCore();
-console.log("[WAFLE LOADED]");
+
+if (wafle.options.consolePrint == true) {
+	console.log("[WAFLE LOADED]");
+}
