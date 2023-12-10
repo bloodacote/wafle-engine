@@ -25,7 +25,7 @@
 			</article>
 
 			<article>
-				<h1> Lorem ipsum! </h1>
+				<h1 id="test-name"> Lorem ipsum! </h1>
 
 				<button class="menu-btn"> Тест кнопочка </button>
 			</article>
@@ -40,6 +40,10 @@
 
 	var testString = "Тестовая строка";
 	console.log(`Строка: ${testString}`);
+
+	// Изменение элемента
+	var textElem = document.getElementById("test-name");
+	textElem.innerText = "Новая надпись! ^-^";
 
 	console.log("Конец кода страницы");
 
