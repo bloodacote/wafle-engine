@@ -82,9 +82,14 @@ var wafle = new WafleCore();
 // Создаём скрипт загрузки ядра (снизу удобнее редактировать инициализацию)
 wafle.load = async function() {
 	return new Promise(async function (resolve, reject) {
+		//--  --  --  --  --  --
+
 
 		await loadScript("/_wafle/sample.js");
 
+
+		//--  --  --  --  --  --
+		// Конец инициализации, всё готово
 		wafle.log("Ядро Wafle загружено! :)");
 		resolve(true);
 	});

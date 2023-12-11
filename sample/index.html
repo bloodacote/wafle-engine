@@ -41,6 +41,8 @@
 
 	// Код страницы
 	var loadPageCode = async function() {
+		await wafle.load(); // Загрузка движка
+
 		console.log("Начало кода страницы");
 
 		var testString = "Тестовая строка";
@@ -54,15 +56,8 @@
 	}
 
 
-	// Загрузка сайта вместе с ядром
-	var loadSite = async function () {
-		await wafle.load();
-		loadPageCode();
-	}
-
-
 	// Запуск
-	loadSite();
+	loadPageCode();
 
 </script>
 
