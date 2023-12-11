@@ -40,9 +40,9 @@
 
 
 	// Код страницы
-	var loadPageCode = async function() {
-		await wafle.load(); // Загрузка движка
+	wafle.start(async function () {
 
+		// Любой код
 		console.log("Начало кода страницы");
 
 		var testString = "Тестовая строка";
@@ -53,11 +53,9 @@
 		textElem.innerText = "Новая надпись! ^-^";
 
 		console.log("Конец кода страницы");
-	}
 
+	});
 
-	// Запуск
-	loadPageCode();
 
 </script>
 

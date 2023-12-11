@@ -31,6 +31,13 @@ class WafleCore {
 	}
 
 
+	// Инициализация со своим скриптом
+	async start(pageFunc) {
+		await this.load();
+		pageFunc();
+	}
+
+
 	// Стилизованный вывод в консоль
 	log(text) {
 		if (this.options.consolePrint == true) {
