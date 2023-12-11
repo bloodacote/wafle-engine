@@ -11,7 +11,7 @@
 
 
 // - - - - - - - - - - - -
-// Ядро
+// Основное ядро движка
 class WafleCore {
 	constructor() {
 
@@ -86,16 +86,18 @@ async function loadScript(url) {
 var wafle = new WafleCore();
 
 
-// Создаём скрипт загрузки ядра (снизу удобнее редактировать инициализацию)
+// Создаём скрипт запуска ядра (снизу удобнее редактировать загрузку)
 wafle.load = async function() {
 	return new Promise(async function (resolve, reject) {
-		//--  --  --  --  --  --
+		// #--  --  --  --  --  --#
 
 
-		await loadScript("/_wafle/sample.js");
+		// Загружаем необходимый функционал из ядра
+		await loadScript("/_wafle/core/load_funcs.js"); // Функции загрузки
 
 
-		//--  --  --  --  --  --
+
+		// #--  --  --  --  --  --#
 		// Конец инициализации, всё готово
 		wafle.log("Ядро Wafle загружено! :)");
 		resolve(true);
