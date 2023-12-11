@@ -1,4 +1,10 @@
 
+// Кеширование ссылки (добавляет временную метку)
+wafle.uncacheUrl = function(url) {
+	var timestamp = "?t=" + Date.now();
+	return url + timestamp;
+}
+
 
 // Главная функция загрузки
 async function loadURL(method, url, data = null, headers = {}) {
