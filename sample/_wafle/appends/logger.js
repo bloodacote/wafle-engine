@@ -28,9 +28,10 @@ wafle.say = function(text, type = "log") {
 	if (wafle.options.consolePrint == true) {
 
 		// Берём статус из опций
-		var typeData = wafle.options.loggerTypes[type];
+		const typeData = wafle.options.loggerTypes[type];
 
-		console.log( `%c${typeData.badge} ${text}`, `
+		const sayText = `%c${typeData.badge} ${text}`;
+		const sayStyle = `
 			background-color: #251b11;
 			border-left: 2px solid ${typeData.color};
 			border-radius: 0px 3px 3px 0px;
@@ -41,7 +42,9 @@ wafle.say = function(text, type = "log") {
 
 			color: ${typeData.color};
 			font-size: 12pt;
-		`);
+		`;
+
+		console.log(sayText, sayStyle);
 	}
 }
 

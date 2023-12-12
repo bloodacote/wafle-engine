@@ -8,16 +8,7 @@ class WafleCore {
 		// Базовые данные
 		this.version = "alpha";
 		this.creator = "Bloodacote";
-
-		this.options = { // Настройки
-
-			// Все выводы wafle.log() будут показываться
-			consolePrint: true,
-			
-			// Все загрузки по типу loadCSS() и тд. буду иметь метку ?t=1234, сбивая кэширование файлов
-			disableCacheLinks: true
-
-		};
+		this.options = {};
 
 	}
 

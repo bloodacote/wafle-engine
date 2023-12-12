@@ -44,6 +44,7 @@ async function wafleStart(pageFunc) {
 		// Подгружаем ядро
 		await loadScript("/_wafle/core/main.js"); // Загрузка ядра
 		window.wafle = new WafleCore(); // Инициализация ядра
+		await loadScript("/_wafle/core/options.js"); // Загрузка ядра
 
 		// Загружаем дополнительный функционал ядра
 		await loadScript("/_wafle/appends/logger.js"); // Логгер - wafle.say()
