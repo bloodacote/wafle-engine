@@ -1,0 +1,17 @@
+{
+	"title": "Test Module",
+	"author": "Bloodacote",
+	"version": 1.00,
+
+	"runner": "main.js",
+	"depends": [
+		{
+			"moduleName": "test_depend",
+			"minVersion": 1.00,
+			"maxVersion": 9.99
+		},
+		{
+			"moduleName": "some_depend"
+		}
+	]
+}

@@ -116,7 +116,7 @@ wafle.load = async function() {
 
 		// Загружаем необходимый функционал из ядра
 		await loadScript("/_wafle/core/load_funcs.js"); // Функции загрузки
-
+		await loadScript("/_wafle/core/module_loader.js"); // Загрузчик пользовательских модулей
 
 
 		// #--  --  --  --  --  --#
