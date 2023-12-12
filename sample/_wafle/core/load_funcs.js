@@ -11,6 +11,7 @@
 */
 
 
+// - - - - - - - - - - - -
 // Кеширование ссылки (добавляет временную метку)
 wafle.uncacheUrl = function(url) {
 	var timestamp = "?t=" + Date.now();
@@ -18,6 +19,7 @@ wafle.uncacheUrl = function(url) {
 }
 
 
+// - - - - - - - - - - - -
 // Загрузка стиля CSS
 wafle.loadCSS = async function(url) {
 	return new Promise(function (resolve, reject) {
@@ -47,6 +49,7 @@ wafle.loadCSS = async function(url) {
 }
 
 
+// - - - - - - - - - - - -
 // (САМОЕ ЗАПАРНОЕ!)
 // Главная функция загрузки
 wafle.loadUrl = async function(method, url, data = null, headers = {}) {
@@ -75,6 +78,7 @@ wafle.loadUrl = async function(method, url, data = null, headers = {}) {
 }
 
 
+// - - - - - - - - - - - -
 // Функция загрузки JSON-файла
 wafle.loadJSON = async function(url) {
 	var jsonData = await wafle.loadUrl("GET", url);
