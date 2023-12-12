@@ -47,22 +47,22 @@ class WafleCore {
 
 	// Стилизованный вывод в консоль
 	say(text, type = "log") {
-
-		const textStatus = {
-			log: "[?]",
-			error: "[x]",
-			warn: "[!]",
-			nice: "[v]"
-		}
-
-		const textColors = {
-			log: "#cf9458",
-			error: "#ff4141",
-			warn: "#d9e532",
-			nice: "#51ff34"
-		};
-
 		if (this.options.consolePrint == true) {
+
+			const textStatus = {
+				log: "[?]",
+				error: "[x]",
+				warn: "[!]",
+				nice: "[v]"
+			}
+
+			const textColors = {
+				log: "#cf9458",
+				error: "#ff4141",
+				warn: "#d9e532",
+				nice: "#6bff53"
+			};
+
 			console.log( `%c${textStatus[type]} ${text}`, `
 				background-color: #251b11;
 				border-left: 2px solid ${textColors[type]};

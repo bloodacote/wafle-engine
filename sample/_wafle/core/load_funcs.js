@@ -6,6 +6,7 @@
 	wafle.uncacheUrl(url) - Убрать кэширование файла
 	wafle.loadCSS(url) - Загружает CSS
 	wafle.loadUrl(method, url, [data, headers]) - Загружает XMLHttpRequest()
+	wafle.loadJSON(url) - Загружает JSON-файлы
 
 */
 
@@ -80,6 +81,7 @@ wafle.loadJSON = async function(url) {
 
 	try {
 		jsonData = JSON.parse(jsonData);
+		return jsonData;
 	}
 
 	catch (err) {
