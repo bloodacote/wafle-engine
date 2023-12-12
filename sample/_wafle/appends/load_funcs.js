@@ -92,3 +92,9 @@ wafle.loadJSON = async function(url) {
 		wafle.say(`JSON имеет неверный формат! [${url}]`, "error");
 	}
 }
+
+
+
+// - - - - - - - - - - - - - - - - -
+wafle.say("Загрузочные функции готовы", "log");
+// - - - - - - - - - - - - - - - - -
