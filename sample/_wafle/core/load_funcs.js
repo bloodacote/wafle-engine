@@ -72,3 +72,17 @@ wafle.loadUrl = async function(method, url, data = null, headers = {}) {
 		xhr.send(JSON.stringify(data));
 	});
 }
+
+
+// Функция загрузки JSON-файла
+wafle.loadJSON = async function(url) {
+	var jsonData = await wafle.loadUrl("GET", url);
+
+	try {
+		jsonData = JSON.parse(jsonData);
+	}
+
+	catch (err) {
+		wafle.say(`JSON имеет неверный формат! [${url}]`, "error");
+	}
+}

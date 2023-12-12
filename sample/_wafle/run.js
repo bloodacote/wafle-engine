@@ -46,18 +46,33 @@ class WafleCore {
 
 
 	// Стилизованный вывод в консоль
-	log(text) {
+	say(text, type = "log") {
+
+		const textStatus = {
+			log: "[?]",
+			error: "[x]",
+			warn: "[!]",
+			nice: "[v]"
+		}
+
+		const textColors = {
+			log: "#cf9458",
+			error: "#ff4141",
+			warn: "#d9e532",
+			nice: "#51ff34"
+		};
+
 		if (this.options.consolePrint == true) {
-			console.log( "%c" + text, `
+			console.log( `%c${textStatus[type]} ${text}`, `
 				background-color: #251b11;
-				border-left: 2px solid #cf9458;
+				border-left: 2px solid ${textColors[type]};
 				border-radius: 0px 3px 3px 0px;
 
 				padding: 3px 5px;
 				padding-left: 8px;
 				margin: 0;
 
-				color: #cf9458;
+				color: ${textColors[type]};
 				font-size: 12pt;
 			`);
 		}
@@ -106,7 +121,11 @@ wafle.load = async function() {
 
 		// #--  --  --  --  --  --#
 		// Конец инициализации, всё готово
-		wafle.log("Ядро Wafle загружено! :)");
+		wafle.say("Ядро Wafle загружено! :)");
+
+		wafle.say(`ОШИБКА! Тестовая ошибка`, "error");
+		wafle.say(`Предупреждение!`, "warn");
+		wafle.say("Ядро Wafle загружено! :)", "nice");
 		resolve(true);
 	});
 }
