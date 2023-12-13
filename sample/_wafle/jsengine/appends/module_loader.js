@@ -25,7 +25,7 @@ wafle.modules.install = async function(moduleName) {
 	await loadScript(moduleRunnerPath);
 
 	console.log(moduleInfo);
-	wafle.say(`Модуль "${moduleName}" установлен`, "log");
+	wafle.say(`Модуль "${moduleName}" установлен`, "info");
 
 }
 

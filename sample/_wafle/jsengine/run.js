@@ -67,7 +67,7 @@ async function wafleStart(pageFunc) {
 
 		await loadScript("/appends/logger.js", true);
 		await loadScript("/appends/load_funcs.js", true);
-		await loadScript("/appends/module_loader.js", true);
+		//await loadScript("/appends/module_loader.js", true);
 
 
 		// #--  --  --  --  --  --#

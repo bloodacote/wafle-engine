@@ -5,14 +5,22 @@ wafle.loggerTypes = {
 		badge: "[?]",
 		color: "#cf9458"
 	},
+
 	error: {
 		badge: "[x]",
 		color: "#ff4141"
 	},
+
 	warn: {
 		badge: "[!]",
 		color: "#d9e532"
 	},
+
+	info: {
+		badge: "[%]",
+		color: "#78c2f7"
+	},
+
 	nice: {
 		badge: "[v]",
 		color: "#6bff53"
