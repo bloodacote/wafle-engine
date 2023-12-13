@@ -1,8 +1,6 @@
 
-
-// Добавление статусов логгера в настройки движка
-wafle.options.loggerTypes = {
-
+// Список статусов логгера в движке
+wafle.loggerTypes = {
 	log: {
 		badge: "[?]",
 		color: "#cf9458"
@@ -19,7 +17,6 @@ wafle.options.loggerTypes = {
 		badge: "[v]",
 		color: "#6bff53"
 	}
-
 };
 
 
@@ -28,7 +25,7 @@ wafle.say = function(text, type = "log") {
 	if (wafle.options.consolePrint == true) {
 
 		// Берём статус из опций
-		const typeData = wafle.options.loggerTypes[type];
+		const typeData = wafle.loggerTypes[type];
 
 		const sayText = `%c${typeData.badge} ${text}`;
 		const sayStyle = `
