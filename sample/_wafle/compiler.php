@@ -15,8 +15,12 @@ class compilerModifier {
 
 	public function eraseComments($content) {
 
-		// One-line comments: //
+		// One-line comments: // comment
 		$pattern = "/\/\/.+/";
+		$content = preg_replace($pattern, "", $content);
+
+		// Many-line comments: /* comment */
+		$pattern = "/\/\*.+\*\//s";
 		$content = preg_replace($pattern, "", $content);
 
 		return $content;
