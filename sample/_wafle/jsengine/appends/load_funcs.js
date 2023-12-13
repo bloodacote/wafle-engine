@@ -10,7 +10,7 @@ wafle.uncacheUrl = function(url) {
 
 // - - - - - - - - - - - -
 // Загрузка стиля CSS
-wafle.loadCSS = async function(url) {
+async function loadCSS(url) {
 	return new Promise(function (resolve, reject) {
 
 		if (url.slice(url.length - 4) != ".css") {
@@ -38,7 +38,7 @@ wafle.loadCSS = async function(url) {
 // - - - - - - - - - - - -
 // (САМОЕ ЗАПАРНОЕ!)
 // Главная функция загрузки
-wafle.loadURL = async function(method, url, data = null, headers = {}) {
+async function loadURL(method, url, data = null, headers = {}) {
 	return new Promise(function (resolve, reject) {
 
 		var xhr = new XMLHttpRequest();
@@ -57,12 +57,12 @@ wafle.loadURL = async function(method, url, data = null, headers = {}) {
 
 		xhr.send(JSON.stringify(data));
 	});
-}
+};
 
 
 // - - - - - - - - - - - -
 // Функция загрузки JSON-файла
-wafle.loadJSON = async function(url) {
+async function loadJSON(url) {
 	var jsonData = await wafle.loadURL("GET", url);
 
 	try {
@@ -72,12 +72,12 @@ wafle.loadJSON = async function(url) {
 	} catch (err) {
 		wafle.say(`JSON имеет неверный формат! [${url}]`, "error");
 	}
-}
+};
 
 
 // - - - - - - - - - - - -
 // Функция проверки, существует ли файл [НЕ РАБОТАЕТ]
-wafle.loadFileExist = async function(url) {
+async function loadFileExist(url) {
 	try {
 		var fileCheck = await wafle.loadURL("HEAD", url);
 		return true;
@@ -85,7 +85,7 @@ wafle.loadFileExist = async function(url) {
 	} catch (err) {
 		return false;
 	}
-}
+};
 
 
 

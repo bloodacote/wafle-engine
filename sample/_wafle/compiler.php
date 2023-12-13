@@ -8,8 +8,6 @@
 $site_dir = $_SERVER["DOCUMENT_ROOT"];
 $engine_dir = __DIR__ . "\jsengine";
 
-//echo $engine_dir;
-
 
 class compilerModifier {
 
@@ -20,24 +18,33 @@ class compilerModifier {
 		$content = preg_replace($pattern, "", $content);
 
 		// Many-line comments: /* comment */
-		$pattern = '/\/\*.+\*\//s';
+		$pattern = '/\/\*.+\*\//sU';
 		$content = preg_replace($pattern, "", $content);
 
 		return $content;
 	}
 
 	public function eraseLines($content) {
-
-		$content = str_replace(PHP_EOL, "", $content);
-		
+		$pattern = '/[\n|\r]{5,}/s';
+		$content = preg_replace($pattern, "", $content);
+		//$content = str_replace(PHP_EOL, "", $content);
 		return $content;
 	}
 
-	public function findScripts($content) {
-		$pattern = '/(await |)loadScript *\( *".*\);/';
-		preg_match_all($pattern, $content, $script_list, PREG_PATTERN_ORDER);
+	public function addCommandEnds($content) {
+		$pattern = '/(?>".+")|(?>`.+`)|(?>}[\s]+[}])|(?>}[\s]+catch)|(?<sel>}[\s]+[^}])/sUm';
+		$content = preg_replace_callback($pattern, function ($match) {
+				if (isset($match['sel'])) {
+			        $match['sel'] = substr_replace($match['sel'], "};", 0, -1);
+			        return $match['sel'];
+			    } else {
+			        return $match[0];
+			    }
+			},
+			$content
+		);
 
-		echo nl2br(print_r($script_list, true));
+		return $content;
 	}
 
 
@@ -54,15 +61,27 @@ function insertScript($script_path) {
 	$script_content = file_get_contents($script_path);
 
 	$script_content = $compile_mods -> eraseComments($script_content);
-	$script_content = $compile_mods -> eraseLines($script_content);
+	//$script_content = $compile_mods -> eraseLines($script_content);
+	$script_content = $compile_mods -> addCommandEnds($script_content);
 
-	$compile_mods -> findScripts($script_content);
-
+	echo $script_content;
 	//echo nl2br($script_content);
 }
 
-echo "// WAFLE JS-engine compiler \n";
+echo nl2br("// WAFLE JS-engine compiler \n");
 
-insertScript("/run.js");
+
+
+$scripts_loader_query = array(
+	"/run.js",
+	"/core/main.js",
+	"/core/logger.js",
+	"/appends/load_funcs.js"
+);
+
+
+foreach ($scripts_loader_query as $script_path) {
+	insertScript($script_path);
+}
 
 ?>

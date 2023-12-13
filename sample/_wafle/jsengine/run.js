@@ -36,14 +36,14 @@ async function loadScript(url, isInternal = false) {
 
 		if (isInternal) {
 			url = waflePath + url;
-		}
+		};
 
 		var elemScript = document.createElement("script");
 		elemScript.src = url;
 
 		elemScript.onload = function () {
 			resolve(true);
-		}
+		};
 
 		document.head.appendChild(elemScript);
 	});
@@ -60,15 +60,11 @@ async function wafleStart(pageFunc) {
 	return new Promise(async function (resolve, reject) {
 		// #--  --  --  --  --  --#
 
+/*
 		await loadScript("/core/main.js", true);
-		window.wafle = new WafleCore();
-
-		await loadScript("/core/options.js", true);
-
-		await loadScript("/appends/logger.js", true);
+		await loadScript("/core/logger.js", true);
 		await loadScript("/appends/load_funcs.js", true);
-		//await loadScript("/appends/module_loader.js", true);
-
+*/
 
 		// #--  --  --  --  --  --#
 		wafle.say("Движок Wafle успешно загружен! :)", "nice");

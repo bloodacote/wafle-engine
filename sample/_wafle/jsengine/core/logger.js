@@ -1,5 +1,4 @@
 
-
 wafle.loggerTypes = {
 	log: {
 		badge: "[?]",
@@ -50,7 +49,7 @@ wafle.say = function(text, type = "log") {
 
 		console.log(sayText, sayStyle);
 	}
-}
+};
 
 
 // - - - - - - - - - - - - - - - - -

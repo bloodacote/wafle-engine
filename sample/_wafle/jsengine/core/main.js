@@ -1,12 +1,18 @@
 
-
 // - - - - - - - - - - - -
 // Основное ядро движка
 class WafleCore {
 	constructor() {
 		this.version = "alpha";
 		this.creator = "Bloodacote";
-		this.options = {};
+		this.options = {
+
+			// [logger.js] - Все выводы wafle.log() будут показываться	
+			consolePrint: true,
+
+			// [load_funcs.js] - Все загрузки по типу loadCSS() не будут кэшировать файлы
+			disableCacheLinks: true
+		};
 	}
 
 	// Здесь будет загрузка ядра
@@ -20,3 +26,7 @@ class WafleCore {
 		pageFunc();
 	}
 }
+
+
+// Запускаем ядро
+window.wafle = new WafleCore();
