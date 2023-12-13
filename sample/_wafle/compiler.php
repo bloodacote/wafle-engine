@@ -14,8 +14,22 @@ $engine_dir = __DIR__ . "\jsengine";
 class compilerModifier {
 
 	public function eraseComments($content) {
+
+		// One-line comments: //
+		$pattern = "/\/\/.+/";
+		$content = preg_replace($pattern, "", $content);
+
 		return $content;
 	}
+
+	public function eraseLines($content) {
+
+		$pattern = "//";
+		$content = preg_replace($pattern, "", $content);
+		
+		return $content;
+	}
+
 
 }
 
