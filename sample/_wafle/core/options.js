@@ -3,22 +3,13 @@
 // Добавление настроек в ядро
 wafle.options = {
 
+	// [logger.js] - Все выводы wafle.log() будут показываться	
+	consolePrint: true,
 
-	// - - - - - - - - - - - - -
-	// [appends/logger.js]
+	// [load_funcs.js] - Все загрузки по типу loadCSS() не будут кэшировать файлы
+	disableCacheLinks: true,
 
-	consolePrint: true, // Все выводы wafle.log() будут показываться	
-
-	// - - - - - - - - - - - - -
-	// [appends/load_funcs.js]
-
-	disableCacheLinks: true, // Все загрузки по типу loadCSS() не будут кэшировать файлы
-
-	// - - - - - - - - - - - - -
-	// [appends/module_loader.js]
-
-	modulesDir: "/user_modules/" // Папка с модулями
-
-
+	// [module_loader.js] - Папка с модулями
+	modulesDir: "/user_modules/"
 
 };

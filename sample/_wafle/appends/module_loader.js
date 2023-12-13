@@ -4,22 +4,18 @@
 // Расширение ядра
 
 
-// Добавление переменных
 wafle.modules = {};
 wafle.modules.list = [];
 
-// Функция проверки модуля
 wafle.modules.check = async function(moduleName) {
-	try {
-		resolve(true);
 
-	} catch (err) {
-		resolve(false);
-	}
+	//TODO - Пока нифига нет
+
 }
 
-// Функция загрузки модуля
 wafle.modules.install = async function(moduleName) {
+
+	//TODO - Тоже пока нифига нет
 
 }
 

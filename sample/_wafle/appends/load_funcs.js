@@ -1,15 +1,4 @@
 
-/*
-
-	Список функций load_funcs.js:
-
-	wafle.uncacheUrl(url) - Убрать кэширование файла
-	wafle.loadCSS(url) - Загружает CSS
-	wafle.loadUrl(method, url, [data, headers]) - Загружает XMLHttpRequest()
-	wafle.loadJSON(url) - Загружает JSON-файлы
-
-*/
-
 
 // - - - - - - - - - - - -
 // Кеширование ссылки (добавляет временную метку)
@@ -24,7 +13,6 @@ wafle.uncacheUrl = function(url) {
 wafle.loadCSS = async function(url) {
 	return new Promise(function (resolve, reject) {
 
-		// Добавление .css, если нет
 		if (url.slice(url.length - 4) != ".css") {
 			url += ".css";
 		}
@@ -55,9 +43,7 @@ wafle.loadCSS = async function(url) {
 wafle.loadURL = async function(method, url, data = null, headers = {}) {
 	return new Promise(function (resolve, reject) {
 
-		var xhr = new XMLHttpRequest(); // Создаём XHR-объект
-
-		// Добавляем настройки
+		var xhr = new XMLHttpRequest();
 		xhr.open(method, url, true);
 
 		// Установка Header-данных
@@ -74,6 +60,7 @@ wafle.loadURL = async function(method, url, data = null, headers = {}) {
 
 		// Отправка наших данных (payload)
 		xhr.send(JSON.stringify(data));
+
 	});
 }
 
