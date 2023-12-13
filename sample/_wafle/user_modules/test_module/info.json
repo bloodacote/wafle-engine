@@ -3,7 +3,7 @@
 	"author": "Bloodacote",
 	"version": 1.00,
 
-	"runner": "main.js",
+	"scriptRunner": "main.js",
 	"depends": [
 		{
 			"moduleName": "test_depend",
