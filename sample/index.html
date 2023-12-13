@@ -34,26 +34,20 @@
 	</body>
 </html>
 
-<script src="/_wafle/jsengine/compiled_run.js"></script>
+<script src="/_wafle/wafle-runner.js"></script>
 
 <script>
 
-	// Код страницы
-	wafleStart(async function () {
+	// Любой код
+	console.log("Начало кода страницы");
 
-		// Любой код
-		console.log("Начало кода страницы");
+	var testString = "Тестовая строка";
+	console.log(`Строка: ${testString}`);
 
-		var testString = "Тестовая строка";
-		console.log(`Строка: ${testString}`);
+	// Изменение элемента
+	var textElem = document.getElementById("test-name");
+	textElem.innerText = "Новая надпись! ^-^";
 
-		// Изменение элемента
-		var textElem = document.getElementById("test-name");
-		textElem.innerText = "Новая надпись! ^-^";
-
-		console.log("Конец кода страницы");
-
-	});
+	console.log("Конец кода страницы");
 
 </script>
-

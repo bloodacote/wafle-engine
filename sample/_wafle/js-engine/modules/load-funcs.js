@@ -2,7 +2,7 @@
 
 // - - - - - - - - - - - -
 // Кеширование ссылки (добавляет временную метку)
-wafle.uncacheUrl = function(url) {
+function removeCacheURL(url) {
 	var timestamp = "?t=" + Date.now();
 	return url + timestamp;
 }
@@ -18,7 +18,7 @@ async function loadCSS(url) {
 		}
 
 		if (wafle.options.disableCacheLinks == true) {
-			url = wafle.uncacheUrl(url);
+			url = removeCacheURL(url);
 		}
 
 		var styleElem = document.createElement("link");
@@ -57,13 +57,13 @@ async function loadURL(method, url, data = null, headers = {}) {
 
 		xhr.send(JSON.stringify(data));
 	});
-};
+}
 
 
 // - - - - - - - - - - - -
 // Функция загрузки JSON-файла
 async function loadJSON(url) {
-	var jsonData = await wafle.loadURL("GET", url);
+	var jsonData = await loadURL("GET", url);
 
 	try {
 		jsonData = JSON.parse(jsonData);
@@ -72,20 +72,20 @@ async function loadJSON(url) {
 	} catch (err) {
 		wafle.say(`JSON имеет неверный формат! [${url}]`, "error");
 	}
-};
+}
 
 
 // - - - - - - - - - - - -
 // Функция проверки, существует ли файл [НЕ РАБОТАЕТ]
 async function loadFileExist(url) {
 	try {
-		var fileCheck = await wafle.loadURL("HEAD", url);
+		var fileCheck = await loadURL("HEAD", url);
 		return true;
 	
 	} catch (err) {
 		return false;
 	}
-};
+}
 
 
 
