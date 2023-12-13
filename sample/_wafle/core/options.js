@@ -6,13 +6,18 @@ wafle.options = {
 
 	// - - - - - - - - - - - - -
 	// [appends/logger.js]
-	
+
 	consolePrint: true, // Все выводы wafle.log() будут показываться	
 
 	// - - - - - - - - - - - - -
 	// [appends/load_funcs.js]
 
-	disableCacheLinks: true // Все загрузки по типу loadCSS() не будут кэшировать файлы
+	disableCacheLinks: true, // Все загрузки по типу loadCSS() не будут кэшировать файлы
+
+	// - - - - - - - - - - - - -
+	// [appends/module_loader.js]
+
+	modulesDir: "/user_modules/" // Папка с модулями
 
 
 

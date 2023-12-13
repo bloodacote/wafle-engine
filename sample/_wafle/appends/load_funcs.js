@@ -52,7 +52,7 @@ wafle.loadCSS = async function(url) {
 // - - - - - - - - - - - -
 // (САМОЕ ЗАПАРНОЕ!)
 // Главная функция загрузки
-wafle.loadUrl = async function(method, url, data = null, headers = {}) {
+wafle.loadURL = async function(method, url, data = null, headers = {}) {
 	return new Promise(function (resolve, reject) {
 
 		var xhr = new XMLHttpRequest(); // Создаём XHR-объект
@@ -81,15 +81,29 @@ wafle.loadUrl = async function(method, url, data = null, headers = {}) {
 // - - - - - - - - - - - -
 // Функция загрузки JSON-файла
 wafle.loadJSON = async function(url) {
-	var jsonData = await wafle.loadUrl("GET", url);
+	var jsonData = await wafle.loadURL("GET", url);
 
 	try {
 		jsonData = JSON.parse(jsonData);
 		return jsonData;
-	}
 
-	catch (err) {
+	} catch (err) {
 		wafle.say(`JSON имеет неверный формат! [${url}]`, "error");
+
+	}
+}
+
+
+// - - - - - - - - - - - -
+// Функция проверки, существует ли файл
+wafle.loadFileExist = async function(url) {
+	try {
+		var fileCheck = await wafle.loadURL("HEAD", url);
+		return true;
+	
+	} catch (err) {
+		return false;
+
 	}
 }
 

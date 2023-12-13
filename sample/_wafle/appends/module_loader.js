@@ -10,7 +10,12 @@ wafle.modules.list = [];
 
 // Функция проверки модуля
 wafle.modules.check = async function(moduleName) {
+	try {
+		resolve(true);
 
+	} catch (err) {
+		resolve(false);
+	}
 }
 
 // Функция загрузки модуля

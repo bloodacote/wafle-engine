@@ -10,10 +10,34 @@
 #= = =# BASE INFO #= = =# */
 
 
+// Функция для получения пути скрипта
+function getScriptPath() {
+
+	var path = document.currentScript.src;
+	var pathParts = path.split("/");
+
+	pathParts = pathParts.slice(0, -1); // Отрезаем последний элемент
+
+	path = pathParts.join("/");
+	//path += "/";
+
+	return path;
+}
+
+
+// Установка корневой папки движка
+const waflePath = getScriptPath();
+
+
 // - - - - - - - - - - - -
 // Функция для загрузки JS-скриптов из движка
-async function loadScript(url) {
+async function loadScript(url, isInternal = false) {
 	return new Promise(function (resolve, reject) {
+
+		// Если скрипт внутренний, то присоединяем папку движка
+		if (isInternal) {
+			url = waflePath + url;
+		}
 
 		// Создаём скрипт и даём ссылку
 		var elemScript = document.createElement("script");
@@ -40,16 +64,15 @@ async function wafleStart(pageFunc) {
 	return new Promise(async function (resolve, reject) {
 		// #--  --  --  --  --  --#
 
-
 		// Подгружаем ядро
-		await loadScript("/_wafle/core/main.js"); // Загрузка ядра
+		await loadScript("/core/main.js", true); // Загрузка ядра
 		window.wafle = new WafleCore(); // Инициализация ядра
-		await loadScript("/_wafle/core/options.js"); // Загрузка ядра
+		await loadScript("/core/options.js", true); // Загрузка настроек ядра
 
 		// Загружаем дополнительный функционал ядра
-		await loadScript("/_wafle/appends/logger.js"); // Логгер - wafle.say()
-		await loadScript("/_wafle/appends/load_funcs.js"); // Функции загрузки
-		await loadScript("/_wafle/appends/module_loader.js"); // Загрузчик пользовательских модулей
+		await loadScript("/appends/logger.js", true); // Логгер - wafle.say()
+		await loadScript("/appends/load_funcs.js", true); // Функции загрузки
+		await loadScript("/appends/module_loader.js", true); // Загрузчик пользовательских модулей
 
 
 		// #--  --  --  --  --  --#
