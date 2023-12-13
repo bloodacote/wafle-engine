@@ -16,11 +16,11 @@ class compilerModifier {
 	public function eraseComments($content) {
 
 		// One-line comments: // comment
-		$pattern = "/\/\/.+/";
+		$pattern = '/\/\/.+/';
 		$content = preg_replace($pattern, "", $content);
 
 		// Many-line comments: /* comment */
-		$pattern = "/\/\*.+\*\//s";
+		$pattern = '/\/\*.+\*\//s';
 		$content = preg_replace($pattern, "", $content);
 
 		return $content;
@@ -28,10 +28,16 @@ class compilerModifier {
 
 	public function eraseLines($content) {
 
-		$pattern = "//";
-		$content = preg_replace($pattern, "", $content);
+		$content = str_replace(PHP_EOL, "", $content);
 		
 		return $content;
+	}
+
+	public function findScripts($content) {
+		$pattern = '/(await |)loadScript *\( *".*\);/';
+		preg_match_all($pattern, $content, $script_list, PREG_PATTERN_ORDER);
+
+		echo nl2br(print_r($script_list, true));
 	}
 
 
@@ -48,8 +54,11 @@ function insertScript($script_path) {
 	$script_content = file_get_contents($script_path);
 
 	$script_content = $compile_mods -> eraseComments($script_content);
+	$script_content = $compile_mods -> eraseLines($script_content);
 
-	echo nl2br($script_content);
+	$compile_mods -> findScripts($script_content);
+
+	//echo nl2br($script_content);
 }
 
 echo "// WAFLE JS-engine compiler \n";
