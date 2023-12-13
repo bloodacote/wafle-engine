@@ -10,12 +10,27 @@ $engine_dir = __DIR__ . "\jsengine";
 
 //echo $engine_dir;
 
+
+class compilerModifier {
+
+	public function eraseComments($content) {
+		return $content;
+	}
+
+}
+
+$compile_mods = new compilerModifier();
+
+
 // Загрузка контента JS-скрипта
 function insertScript($script_path) {
-	global $engine_dir;
+	global $compile_mods, $engine_dir;
 
 	$script_path = $engine_dir . $script_path;
 	$script_content = file_get_contents($script_path);
+
+	$script_content = $compile_mods -> eraseComments($script_content);
+
 	echo nl2br($script_content);
 }
 
