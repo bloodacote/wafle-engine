@@ -1,5 +1,5 @@
 
-/* #= = =# BASE INFO #= = =#
+/*-------# BASE INFO #-----#
 
 	:: WAFLE Engine - запускной файл
 	:: Создатель: Bloodacote
@@ -7,9 +7,10 @@
 	:: Файл, который запускает ядро и
 	заставляет работать все системы
 
-#= = =# BASE INFO #= = =# */
+#-------------------------*/
 
 
+// - - - - - - - - - - - -
 // Функция для получения пути скрипта
 function getScriptPath() {
 
@@ -33,7 +34,6 @@ const waflePath = getScriptPath();
 async function loadScript(url, isInternal = false) {
 	return new Promise(function (resolve, reject) {
 
-		// Если скрипт внутренний, то присоединяем папку движка
 		if (isInternal) {
 			url = waflePath + url;
 		}
@@ -60,13 +60,11 @@ async function wafleStart(pageFunc) {
 	return new Promise(async function (resolve, reject) {
 		// #--  --  --  --  --  --#
 
-		// Подгружаем ядро
 		await loadScript("/core/main.js", true);
 		window.wafle = new WafleCore();
 
 		await loadScript("/core/options.js", true);
 
-		// Загружаем дополнительный функционал ядра
 		await loadScript("/appends/logger.js", true);
 		await loadScript("/appends/load_funcs.js", true);
 		await loadScript("/appends/module_loader.js", true);
@@ -74,9 +72,7 @@ async function wafleStart(pageFunc) {
 
 		// #--  --  --  --  --  --#
 		wafle.say("Движок Wafle успешно загружен! :)", "nice");
-
 		pageFunc();
-
 		resolve(true);
 	});
 }

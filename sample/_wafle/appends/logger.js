@@ -1,5 +1,5 @@
 
-// Список статусов логгера в движке
+
 wafle.loggerTypes = {
 	log: {
 		badge: "[?]",
@@ -24,7 +24,6 @@ wafle.loggerTypes = {
 wafle.say = function(text, type = "log") {
 	if (wafle.options.consolePrint == true) {
 
-		// Берём статус из опций
 		const typeData = wafle.loggerTypes[type];
 
 		const sayText = `%c${typeData.badge} ${text}`;

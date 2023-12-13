@@ -17,12 +17,10 @@ wafle.loadCSS = async function(url) {
 			url += ".css";
 		}
 
-		// Удаление кэша (если настройка вкл.)
 		if (wafle.options.disableCacheLinks == true) {
 			url = wafle.uncacheUrl(url);
 		}
 
-		// Создание элемента
 		var styleElem = document.createElement("link");
 		styleElem.rel = "stylesheet";
 		styleElem.href = url;
@@ -51,16 +49,13 @@ wafle.loadURL = async function(method, url, data = null, headers = {}) {
 			xhr.setRequestHeader(headType, headValue);
 		}
 
-		// При успешной загрузке возвращаются данные
 		xhr.onload = function() {
 			if (xhr.status >= 200 && xhr.status <= 299) {
-				resolve(xhr.responseText); // Вот эти данные
+				resolve(xhr.responseText); // <- ДАННЫЕ
 			}
 		};
 
-		// Отправка наших данных (payload)
 		xhr.send(JSON.stringify(data));
-
 	});
 }
 
@@ -76,13 +71,12 @@ wafle.loadJSON = async function(url) {
 
 	} catch (err) {
 		wafle.say(`JSON имеет неверный формат! [${url}]`, "error");
-
 	}
 }
 
 
 // - - - - - - - - - - - -
-// Функция проверки, существует ли файл
+// Функция проверки, существует ли файл [НЕ РАБОТАЕТ]
 wafle.loadFileExist = async function(url) {
 	try {
 		var fileCheck = await wafle.loadURL("HEAD", url);
@@ -90,7 +84,6 @@ wafle.loadFileExist = async function(url) {
 	
 	} catch (err) {
 		return false;
-
 	}
 }
 
