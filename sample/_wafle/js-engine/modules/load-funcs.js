@@ -36,7 +36,6 @@ async function loadCSS(url) {
 
 
 // - - - - - - - - - - - -
-// (САМОЕ ЗАПАРНОЕ!)
 // Главная функция загрузки
 async function loadURL(method, url, data = null, headers = {}) {
 	return new Promise(function (resolve, reject) {

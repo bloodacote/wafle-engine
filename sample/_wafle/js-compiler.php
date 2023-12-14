@@ -91,8 +91,6 @@ function addCommentLine($text) {
 
 // Очередь на загрузку JS-скриптов
 $scripts_loader_query = array(
-	"/run.js",
-
 	"/core/main.js",
 	"/core/logger.js",
 

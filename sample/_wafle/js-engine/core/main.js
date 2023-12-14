@@ -14,17 +14,6 @@ class WafleCore {
 			disableCacheLinks: true
 		};
 	}
-
-	// Здесь будет загрузка ядра
-	load() {
-		console.warn("[WAFLE] Скрипт загрузки ядра не инициализирован!");
-	}
-
-	// Загрузка ядра И ПОСЛЕ запускается любой код
-	async start(pageFunc) {
-		await this.load();
-		pageFunc();
-	}
 }
 
 
