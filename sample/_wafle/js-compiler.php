@@ -7,7 +7,7 @@
 // Установка корневых папок и файлов
 $site_dir = $_SERVER["DOCUMENT_ROOT"];
 $engine_dir = __DIR__ . "\js-engine";
-$compiled_filename = "wafle-runner.js";
+$compiled_filename = $site_dir . "\wafle-runner.js";
 
 
 
@@ -91,12 +91,8 @@ function addCommentLine($text) {
 
 // Очередь на загрузку JS-скриптов
 $scripts_loader_query = array(
-	"/core/main.js",
-	"/core/logger.js",
-
-	"/modules/load-funcs.js",
-
-	"/end.js"
+	"/core.js",
+	"/modules/load-funcs.js"
 );
 
 

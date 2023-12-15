@@ -8,6 +8,11 @@ function removeCacheURL(url) {
 }
 
 
+
+// Настройки
+wafle.options.disableCacheLinks = true;
+
+
 // - - - - - - - - - - - -
 // Загрузка стиля CSS
 async function loadCSS(url) {
@@ -70,19 +75,6 @@ async function loadJSON(url) {
 
 	} catch (err) {
 		wafle.say(`JSON имеет неверный формат! [${url}]`, "error");
-	}
-}
-
-
-// - - - - - - - - - - - -
-// Функция проверки, существует ли файл [НЕ РАБОТАЕТ]
-async function loadFileExist(url) {
-	try {
-		var fileCheck = await loadURL("HEAD", url);
-		return true;
-	
-	} catch (err) {
-		return false;
 	}
 }
 
