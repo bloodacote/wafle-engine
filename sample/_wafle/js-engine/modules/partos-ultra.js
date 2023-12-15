@@ -14,34 +14,63 @@ class EditableElem {
 
 	// Инициализация / Установка нового селектора
 	init() {
-
+		this.parent = this.element.parentNode;
 	}
 
 	// Поставить внутрь элемента
 	place(parentElem) {
-		parentElem = el(parentElem);
-		console.log(parentElem);
-		console.log(this.element);
-		parentElem.element.appendChild(this.element);
+		parentElem = elemize(parentElem);
+
+		parentElem.appendChild(this.element);
+		this.init();
+	}
+
+	// Поставить перед элементом
+	insertBefore(otherElem) {
+		otherElem = elemize(otherElem);
+		var parentElem = otherElem.parentNode;
+
+		parentElem.insertBefore(this.element, otherElem);
+		this.init();
+	}
+
+	// Поставить после элемента
+	insertAfter(otherElem) {
+		otherElem = elemize(otherElem);
+		var parentElem = otherElem.parentNode;
+
+		this.insertBefore(otherElem);
+		edit(otherElem).insertBefore(this);
+		this.init();
 	}
 }
 
 
-// Функция превращает селектор/элемент в элемент
+// Функция превращает селектор/элемент/модэлем в элемент
 function elemize(elem) {
 
-	// Если это селектор, превращаем в элемент
+	// Модэлем -> элемент
+	if (elem instanceof EditableElem) {
+		elem = elem.element;
+	}
+
+	// Селектор -> элемент
 	if (typeof(elem) == "string") {
 		elem = document.querySelector(elem);
 	}
+
 	return elem;
 }
 
 
 // Функция превращает селектор/элемент/модэлем в модэлем
-function el(elem) {
+function edit(elem) {
+
+	// Модэлем -> элемент
 	if (elem instanceof EditableElem) {
 		elem = elem.element;
+
+	// Селектор/элемент -> элемент
 	} else {
 		elem = elemize(elem);
 	}
