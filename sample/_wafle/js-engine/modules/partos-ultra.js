@@ -1,26 +1,32 @@
 
 
+// elem = Объект-элемент или селектор
+
 // Класс модифицированного элемента
-class posuElem {
-	constructor(selector) {
-		this.selector = selector;
-		this.elem = null;
-		this.place = null;
+class EditableElem {
+	constructor(elem) {
+		this.selector = null;
+		this.element = elem;
+		this.parent = null;
 
 		this.init();
 	}
 
-	// Инициализация / Устанвока нового селектора
-	init(selector = this.selector) {
-		this.selector = selector;
-		this.elem = document.querySelector(this.selector);
-		this.place = this.elem.parentElement;
+	// Инициализация / Установка нового селектора
+	init() {
+		this.parent = this.element.parentNode;
 	}
 }
 
 
-// Функция получает элемент
-function el(elemSelector) {
-	var elem = new posuElem(elemSelector);
-	return elem;
+// Функция возвращает элемент
+function el(elem) {
+
+	// Если это селектор, превращаем в элемент
+	if (typeof(elem) == "string") {
+		elem = document.querySelector(elem);
+	}
+
+	var newElem = new EditableElem(elem);
+	return newElem;
 }
