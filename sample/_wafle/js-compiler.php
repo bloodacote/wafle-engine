@@ -92,7 +92,8 @@ function addCommentLine($text) {
 // Очередь на загрузку JS-скриптов
 $scripts_loader_query = array(
 	"/core.js",
-	"/modules/load-funcs.js"
+	"/modules/load-funcs.js",
+	"/modules/partos-ultra.js"
 );
 
 

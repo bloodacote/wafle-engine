@@ -1,16 +1,15 @@
 
 
+// Настройки
+wafle.options.disableCacheLinks = true;
+
+
 // - - - - - - - - - - - -
 // Кеширование ссылки (добавляет временную метку)
 function removeCacheURL(url) {
 	var timestamp = "?t=" + Date.now();
 	return url + timestamp;
 }
-
-
-
-// Настройки
-wafle.options.disableCacheLinks = true;
 
 
 // - - - - - - - - - - - -
