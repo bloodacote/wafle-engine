@@ -43,7 +43,7 @@ class compilerModifier {
 
 	// Добавляет ; где надо (НЕНАВИЖУ ЭТУ ДИЧЬ)
 	public function addCommandEnds($content) {
-		$pattern = '/(?>".+")|(?>`.+`)|(?>}[\s]+[}])|(?>}[\s]+catch)|(?<sel>}[\s]+[^}])/sUm';
+		$pattern = '/(".+")|(`.+`)|(}[\s]+[}])|(}[\s]+catch)|(}[\s]+else)|(?<sel>}[\s]+[^}])/sUm';
 		$content = preg_replace_callback($pattern, function ($match) {
 				if (isset($match['sel'])) {
 			        $match['sel'] = substr_replace($match['sel'], "};", 0, -1);
@@ -60,6 +60,10 @@ class compilerModifier {
 
 	// Поиск функций на всякий случай
 	// ([\w]+\.[\S]+[\s]*=[\s]*)(async[\s]*function|function)\(.*\)
+
+	// Старый регекс
+	/* /(?>".+")|(?>`.+`)|(?>}[\s]+[}])|(?>}[\s]+catch)|(?<sel>}[\s]+[^}])/sUm
+	*/
 }
 
 // Инициализация модификатора
