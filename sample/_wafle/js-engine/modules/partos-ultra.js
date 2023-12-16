@@ -104,6 +104,42 @@ class EditableElem {
 		selector = selector.toLowerCase();
 		return selector;
 	}
+
+	// Установить селектор
+	setSelector(selector) {
+		var elemTag = "";
+		var elemId = "";
+		var elemClasses = [];
+
+
+		selector = selector.replaceAll(" ", "");
+
+		var selectorSplitter = selector.split("#");
+
+		// Если в селекторе есть знак "#" - айди
+		if (selectorSplitter.length != 1) {
+
+			elemTag = selectorSplitter[0];
+			selectorSplitter = selector.split(".");
+			elemId = selectorSplitter[0].split("#")[1];
+			elemClasses = selectorSplitter.slice(1);
+
+		// Если нет знака
+		} else {
+
+			selectorSplitter = selector.split(".");
+			elemTag = selectorSplitter[0];
+			elemClasses = selectorSplitter.slice(1);
+
+		}
+
+		if (elemTag == "") {
+			elemTag = "div";
+		}
+
+		return `Tag: ${elemTag}, Id: ${elemId}, Classes: ${elemClasses}`;
+
+	}
 }
 
 
