@@ -18,10 +18,9 @@ class EditableElem {
 	}
 
 
-	//_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-	//                             /
+	//- - - - - - - - - - - - - - - - - - -
 	//    ПЕРЕДВИЖЕНИЕ МОДЭЛЕМА
-	//_ _ _ _ _ _ _ _ _ _ _ _ _ _/
+	//- - - - - - - - - - - - - - - - - - -
 
 
 	// Поставить внутрь элемента
@@ -52,10 +51,10 @@ class EditableElem {
 	}
 
 
-	//_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-	//                             /
+	//- - - - - - - - - - - - - - - - - - -
 	//    КОНТЕНТ
-	//_ _ _ _ _ _ _ _ _ _ _ _ _ _/
+	//- - - - - - - - - - - - - - - - - - -
+
 
 	// Быстро получить innerHTML
 	getContent() {
@@ -85,10 +84,10 @@ class EditableElem {
 	}
 
 
-	//_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-	//                             /
-	//    СТИЛИ И СЕЛЕКТОР
-	//_ _ _ _ _ _ _ _ _ _ _ _ _ _/
+	//- - - - - - - - - - - - - - - - - - -
+	//    СЕЛЕКТОР
+	//- - - - - - - - - - - - - - - - - - -
+
 
 	// Получить селектор элемента
 	getSelector() {
@@ -107,42 +106,18 @@ class EditableElem {
 
 	// Установить селектор
 	setSelector(selector) {
-		var elemTag = "";
-		var elemId = "";
-		var elemClasses = [];
-
-
-		selector = selector.replaceAll(" ", "");
-
-		var selectorSplitter = selector.split("#");
-
-		// Если в селекторе есть знак "#" - айди
-		if (selectorSplitter.length != 1) {
-
-			elemTag = selectorSplitter[0];
-			selectorSplitter = selector.split(".");
-			elemId = selectorSplitter[0].split("#")[1];
-			elemClasses = selectorSplitter.slice(1);
-
-		// Если нет знака
-		} else {
-
-			selectorSplitter = selector.split(".");
-			elemTag = selectorSplitter[0];
-			elemClasses = selectorSplitter.slice(1);
-
-		}
-
-		if (elemTag == "") {
-			elemTag = "div";
-		}
+		var selParts = selectorSplit(selector);
 
 		// Установка всех параметров
-		this.element.id = elemId;
-		this.element.classList.value = elemClasses.join(" ");
-
-		//return `Tag: ${elemTag}, Id: ${elemId}, Classes: ${elemClasses}`;
+		this.element.id = selParts.id;
+		this.element.classList.value = selParts.classes.join(" ");
 	}
+
+
+	//- - - - - - - - - - - - - - - - - - -
+	//    РЕДАКТИРОВАНИЕ КЛАССОВ И АЙДИ
+	//- - - - - - - - - - - - - - - - - - -
+
 
 	// Получить ID элемента
 	getId() {
@@ -176,6 +151,51 @@ class EditableElem {
 }
 
 
+//- - - - - - - - - - - - - - - - - - -
+
+
+// Функция разбивает селектор на части
+function selectorSplit(selector) {
+	var elemTag = "";
+	var elemId = "";
+	var elemClasses = [];
+
+
+	selector = selector.replaceAll(" ", "");
+
+	var selectorSplitter = selector.split("#");
+
+	// Если в селекторе есть знак "#" - айди
+	if (selectorSplitter.length != 1) {
+
+		// Разбиение строки на части параметров элемента
+		elemTag = selectorSplitter[0];
+		selectorSplitter = selector.split(".");
+		elemId = selectorSplitter[0].split("#")[1];
+		elemClasses = selectorSplitter.slice(1);
+
+	// Если нет знака
+	} else {
+
+		// Разбиение строки на части параметров элемента
+		selectorSplitter = selector.split(".");
+		elemTag = selectorSplitter[0];
+		elemClasses = selectorSplitter.slice(1);
+
+	}
+
+	if (elemTag == "") {
+		elemTag = "div";
+	}
+
+	return {
+		tag: elemTag,
+		id: elemId,
+		classes: elemClasses
+	};
+}
+
+
 // Функция превращает селектор/элемент/модэлем в элемент
 function elemize(elem) {
 
@@ -206,5 +226,21 @@ function edit(elem) {
 	}
 
 	var newElem = new EditableElem(elem);
+	return newElem;
+}
+
+// Функция создаёт элемент по селектору
+function addElem(selector, content = null, parent = null) {
+	var selectorInfo = selectorSplit(selector);
+
+	var newElem = document.createElement(selectorInfo.tag);
+	newElem.id = selectorInfo.id;
+	newElem.classList.value = selectorInfo.classes.join(" ");
+	newElem.innerHTML = content;
+
+	if (parent != null) {
+		elemize(parent).appendChild(newElem);
+	}
+
 	return newElem;
 }
