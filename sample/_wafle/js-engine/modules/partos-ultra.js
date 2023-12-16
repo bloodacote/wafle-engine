@@ -137,8 +137,41 @@ class EditableElem {
 			elemTag = "div";
 		}
 
-		return `Tag: ${elemTag}, Id: ${elemId}, Classes: ${elemClasses}`;
+		// Установка всех параметров
+		this.element.id = elemId;
+		this.element.classList.value = elemClasses.join(" ");
 
+		//return `Tag: ${elemTag}, Id: ${elemId}, Classes: ${elemClasses}`;
+	}
+
+	// Получить ID элемента
+	getId() {
+		return this.element.id;
+	}
+
+	// Изменить ID элемента
+	setId(newId) {
+		this.element.id = newId;
+	}
+
+	// Выставить новые классы
+	setClass(classList) {
+		if (typeof(classList) == "array") {
+			this.element.classList.value = classList.join(" ");
+
+		} else {
+			this.element.classList.value = classList;
+		}
+	}
+
+	// Добавить класс
+	addClass(className) {
+		this.element.classList.add(className);
+	}
+
+	// Убрать класс
+	removeClass(className) {
+		this.element.classList.remove(className);
 	}
 }
 
