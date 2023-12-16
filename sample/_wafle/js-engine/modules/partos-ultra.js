@@ -17,6 +17,13 @@ class EditableElem {
 		this.parent = this.element.parentNode;
 	}
 
+
+	//_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+	//                             /
+	//    ПЕРЕДВИЖЕНИЕ МОДЭЛЕМА
+	//_ _ _ _ _ _ _ _ _ _ _ _ _ _/
+
+
 	// Поставить внутрь элемента
 	place(parentElem) {
 		parentElem = elemize(parentElem);
@@ -42,6 +49,60 @@ class EditableElem {
 		this.insertBefore(otherElem);
 		edit(otherElem).insertBefore(this);
 		this.init();
+	}
+
+
+	//_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+	//                             /
+	//    КОНТЕНТ
+	//_ _ _ _ _ _ _ _ _ _ _ _ _ _/
+
+	// Быстро получить innerHTML
+	getContent() {
+		var content = this.element.innerHTML;
+		return content;
+	}
+
+	// Быстро добавить innerHTML
+	setHTML(content) {
+		this.element.innerHTML = content;
+	}
+
+	// Быстро добавить innerText
+	setText(content) {
+		this.element.innerText = content;
+	}
+
+	// Заменить части текста
+	replace(replaceList) {
+		var content = this.element.innerHTML;
+
+		for (let [key, value] of Object.entries(replaceList)) {
+			content = content.replace(key, value);
+		}
+
+		this.element.innerHTML = content;
+	}
+
+
+	//_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+	//                             /
+	//    СТИЛИ И СЕЛЕКТОР
+	//_ _ _ _ _ _ _ _ _ _ _ _ _ _/
+
+	// Получить селектор элемента
+	getSelector() {
+		var selector = "";
+
+		selector += this.element.tagName;
+		selector += "#" + this.element.id;
+
+		for (let className of this.element.classList) {
+			selector += "." + className;
+		}
+
+		selector = selector.toLowerCase();
+		return selector;
 	}
 }
 
