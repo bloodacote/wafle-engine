@@ -31,8 +31,10 @@ class compilerModifier {
 	public function eraseComments($content) {
 
 		// One-line comments: // comment
-		$pattern = '/\/\/.+/';
-		$content = preg_replace($pattern, "", $content);
+
+		// (".*")|('.*')|(?<sel>\/\/.*\n)
+		$pattern = '/(".*")|(\'.*\')|(?<sel>\/\/.*\n)/mU';
+		$content = regexReplace($content, $pattern, "");
 
 		// Many-line comments: /* comment */
 		$pattern = '/\/\*.+\*\//sU';
@@ -84,7 +86,22 @@ function addCommentLine($text) {
 	return nl2br("//$text\n");
 }
 
+// Упрощение замены regex
+function regexReplace($content, $pattern, $replaced) {
 
+	$content = preg_replace_callback($pattern, function ($match) use ($replaced) {
+		//print_r($match);
+			if (isset($match['sel'])) {
+				return is_callable($replaced) ? $replaced() : $replaced;
+		    } else {
+		    	return $match[0];
+		    }
+		},
+		$content
+	);
+
+	return $content;
+}
 
 /* - - - - - - - - - - - - - -
 	Компиляция
@@ -98,7 +115,9 @@ $code_content = "";
 
 // Список загружаемых скриптов
 $scripts_loader_query = array(
-	"core.php"
+	"core.php",
+
+	"api-tools/data-transfer.php"
 );
 
 
