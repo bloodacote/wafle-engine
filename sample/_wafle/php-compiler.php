@@ -8,57 +8,16 @@
 // Установка корневых папок и файлов
 $site_dir = $_SERVER["DOCUMENT_ROOT"];
 $engine_dir = __DIR__ . "\php-engine";
+$compiler_tools_dir = __DIR__ . "\compiler-tools";
+
 $compiled_filename = $site_dir . "\wafle-runner.php";
 
 
-/* - - - - - - - - - - - - - -
-	Модификации дял компиляции
-- - - - - - - - - - - - - - */
 
-// Модификации кода для компилятора
-class compilerModifier {
-
-	// Очищение от PHP-границ
-	public function clearBorders($content) {
-
-		$pattern = '/<\?php|\?>/';
-		$content = preg_replace($pattern, "", $content);
-
-		return $content;
-	}
-
-	// Удаление комментов из кода
-	public function eraseComments($content) {
-
-		// One-line comments: // comment
-
-		// (".*")|('.*')|(?<sel>\/\/.*\n)
-		$pattern = '/(".*")|(\'.*\')|(?<sel>\/\/.*\n)/mU';
-		$content = regexReplace($content, $pattern, "");
-
-		// Many-line comments: /* comment */
-		$pattern = '/\/\*.+\*\//sU';
-		$content = preg_replace($pattern, "", $content);
-
-		return $content;
-	}
-
-	// Удаление переносов строк, табов и пробелов
-	public function eraseLines($content) {
-
-		$pattern = '/[\n|\r|\t]+/s';
-		$content = preg_replace($pattern, " ", $content);
-
-		$pattern = '/\s+/s';
-		$content = preg_replace($pattern, " ", $content);
-
-		return $content;
-	}
-
-}
-
-// Инициализация модификатора
-$compile_mods = new compilerModifier();
+// Подключение инструментов компилятора
+include $compiler_tools_dir . "\\modifiers.php";
+include $compiler_tools_dir . "\\regex-funcs.php";
+include $compiler_tools_dir . "\\compile.php";
 
 
 
@@ -74,76 +33,27 @@ function insertScript($script_path) {
 	$script_path = str_replace("/", "\\", $script_path);
 
 	$script_content = file_get_contents($script_path);
-	$script_content = $compile_mods -> clearBorders($script_content);
+	$script_content = $compile_mods -> clearPhpBorders($script_content);
 	$script_content = $compile_mods -> eraseComments($script_content);
 	$script_content = $compile_mods -> eraseLines($script_content);
 
 	$code_content .= $script_content;
 }
 
-// Добавление строки
-function addCommentLine($text) {
-	return nl2br("//$text\n");
-}
 
-// Упрощение замены regex
-function regexReplace($content, $pattern, $replaced) {
-
-	$content = preg_replace_callback($pattern, function ($match) use ($replaced) {
-		//print_r($match);
-			if (isset($match['sel'])) {
-				return is_callable($replaced) ? $replaced() : $replaced;
-		    } else {
-		    	return $match[0];
-		    }
-		},
-		$content
-	);
-
-	return $content;
-}
 
 /* - - - - - - - - - - - - - -
 	Компиляция
 - - - - - - - - - - - - - - */
 
-// Установка времени компиляции
-$compile_time = date("Y-m-d H:i:s");
 
-// Инициализация кода
-$code_content = "";
-
-// Список загружаемых скриптов
-$scripts_loader_query = array(
+// Загрузка PHP-скриптов и их компиляция
+compileAndPrint(array(
 	"core.php",
 
 	"api-tools/data-transfer.php"
-);
+));
 
 
-// Добавление начальной информации
-$code_content .= addCommentLine(" WAFLE PHP-engine compiler ");
-$code_content .= addCommentLine(" Compiled at: $compile_time ");
-$code_content .= addCommentLine("");
-
-
-// Загрузка скриптов по очереди
-foreach ($scripts_loader_query as $script_path) {
-	insertScript($script_path);
-}
-
-
-$code_content = "<?php\n" . $code_content . "\n?>";
-
-// Сохранение скомпилированного кода
-file_put_contents($compiled_filename, $code_content);
-
-
-// Вывод о том, что всё прошло успешно
-echo "
-+- - - - - - - - - - - - -+
-Компиляция прошла успешно!
-+- - - - - - - - - - - - -+
-";
 
 ?>
