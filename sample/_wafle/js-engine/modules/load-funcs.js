@@ -80,5 +80,5 @@ async function loadJSON(url) {
 
 
 // - - - - - - - - - - - - - - - - -
-wafle.say("Загрузочные функции готовы", "log");
+wafle.say(`(Load funcs) loaded`);
 // - - - - - - - - - - - - - - - - -

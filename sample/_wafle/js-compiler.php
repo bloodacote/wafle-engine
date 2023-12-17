@@ -101,7 +101,7 @@ $scripts_loader_query = array(
 );
 
 
-// Утсановка времени компиляции
+// Установка времени компиляции
 $compile_time = date("Y-m-d H:i:s");
 
 

@@ -1,6 +1,6 @@
 
 
-class wafleCore {
+class WafleCore {
 	constructor() {
 		this.name = "Wafle";
 		this.author = "Bloodacote";
@@ -12,4 +12,5 @@ class wafleCore {
 	}
 }
 
-var wafle = new wafleCore();
+var wafle = new WafleCore();
+wafle.say(`Wafle core loaded`);

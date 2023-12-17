@@ -244,3 +244,7 @@ function addElem(selector, content = null, parent = null) {
 
 	return newElem;
 }
+
+// - - - - - - - - - - - - - - - - -
+wafle.say(`(PartOS Ultra) loaded`);
+// - - - - - - - - - - - - - - - - -
