@@ -27,6 +27,20 @@ class compilerModifier {
 		return $content;
 	}
 
+	// Удаление комментов из кода
+	public function eraseComments($content) {
+
+		// One-line comments: // comment
+		$pattern = '/\/\/.+/';
+		$content = preg_replace($pattern, "", $content);
+
+		// Many-line comments: /* comment */
+		$pattern = '/\/\*.+\*\//sU';
+		$content = preg_replace($pattern, "", $content);
+
+		return $content;
+	}
+
 	// Удаление переносов строк, табов и пробелов
 	public function eraseLines($content) {
 
@@ -59,6 +73,7 @@ function insertScript($script_path) {
 
 	$script_content = file_get_contents($script_path);
 	$script_content = $compile_mods -> clearBorders($script_content);
+	$script_content = $compile_mods -> eraseComments($script_content);
 	$script_content = $compile_mods -> eraseLines($script_content);
 
 	$code_content .= $script_content;
@@ -83,9 +98,7 @@ $code_content = "";
 
 // Список загружаемых скриптов
 $scripts_loader_query = array(
-	"core.php",
-	"file1.php",
-	"file2.php"
+	"core.php"
 );
 
 

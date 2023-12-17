@@ -4,6 +4,7 @@ class WafleCore {
 	constructor() {
 		this.name = "Wafle";
 		this.author = "Bloodacote";
+		this.version = "alpha";
 		this.options = {};
 	}
 

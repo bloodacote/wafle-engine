@@ -1,6 +1,6 @@
 <?php
 // WAFLE PHP-engine compiler <br />
-// Compiled at: 2023-12-17 23:38:40 <br />
+// Compiled at: 2023-12-17 23:45:55 <br />
 //<br />
- echo "Core file!\n";  echo "First file!\n";  echo "Second file!\n"; 
+ class WafleEngine { function __construct() { $this -> $name = "Wafle"; $this -> $author = "Bloodacote"; $this -> $version = "alpha"; $this -> $options = array(); } } 
 ?>
