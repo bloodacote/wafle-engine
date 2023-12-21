@@ -74,7 +74,7 @@ async function loadAPI(url, data = null, method = "POST", headers = {}) {
 		return jsonData;
 
 	} catch (err) {
-		wafle.say(`API имеет неверный JSON-формат! [${url}]`, "error");
+		wafle.say(`API выдал не JSON! [${url}] \n Вывод: ${jsonData}`, "error");
 	}
 }
 

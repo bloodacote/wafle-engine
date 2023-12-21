@@ -13,6 +13,25 @@
 	}
 
 
+	// Простейшая функция получить input
+	function get_input($key) {
+		global $input;
+
+		if (array_key_exists($key, $input)) {
+			return $input[$key];
+		} else {
+			return null;
+		}
+	}
+
+	// Простейшая функция поставить output
+	function set_output($key, $value) {
+		global $output;
+
+		$output[$key] = $value;
+	}
+
+
 	// Функция вывода данных
 	function send_output_data() {
 		global $output, $error_list, $status;
@@ -37,11 +56,17 @@
 
 	// Функция отправки ошибки
 	function add_error($code, $tag) {
-		global $error_list, $status;
+		global $error_list, $status, $wafle;
 
 		$status = $code;
 		array_push($error_list, $tag);
 		//http_response_code($code);
+
+		// Аварийное завершение работы
+		if ($wafle -> get_option("strict_exit") == true) {
+			send_output_data();
+			exit();
+		}
 	}
 
 
