@@ -41,7 +41,7 @@ async function loadCSS(url) {
 
 // - - - - - - - - - - - -
 // Главная функция загрузки
-async function loadURL(method, url, data = null, headers = {}) {
+async function loadURL(url, data = null, method = "POST", headers = {}) {
 	return new Promise(function (resolve, reject) {
 
 		var xhr = new XMLHttpRequest();
@@ -60,6 +60,22 @@ async function loadURL(method, url, data = null, headers = {}) {
 
 		xhr.send(JSON.stringify(data));
 	});
+}
+
+
+// - - - - - - - - - - - -
+// Функция загрузки API (loadURL, но с компиляцией JSON)
+async function loadAPI(url, data = null, method = "POST", headers = {}) {
+	
+	var jsonData = await loadURL(url, data, method, headers);
+
+	try {
+		jsonData = JSON.parse(jsonData);
+		return jsonData;
+
+	} catch (err) {
+		wafle.say(`API имеет неверный JSON-формат! [${url}]`, "error");
+	}
 }
 
 

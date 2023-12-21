@@ -49,11 +49,12 @@ function insertScript($script_path) {
 
 // Загрузка PHP-скриптов и их компиляция
 compileAndPrint(array(
+
 	"core.php",
 
-	"api-tools/data-transfer.php"
-));
+	"modules/api-data.php",
+	"modules/api-funcs.php"
 
-
+), "<?php\n", "\n?>");
 
 ?>

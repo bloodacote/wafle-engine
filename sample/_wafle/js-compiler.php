@@ -43,12 +43,17 @@ function insertScript($script_path) {
 - - - - - - - - - - - - - - */
 
 
+// Установка пустого кода
+$code_content = "";
+
 // Загрузка JS-скриптов и их компиляция
 compileAndPrint(array(
+	
 	"/core.js",
 	"/modules/load-funcs.js",
 	"/modules/partos-ultra.js"
-));
+
+), "", "");
 
 
 ?>

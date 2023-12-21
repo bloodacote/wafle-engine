@@ -8,16 +8,14 @@ function addCommentLine($text) {
 
 
 // Компиляция и вывод
-function compileAndPrint($scripts_loader_query) {
-	global $script_path, $compiled_filename;
+function compileAndPrint($scripts_loader_query, $str_start, $str_end) {
+	global $code_content, $compiled_filename;
 
 	// Установка времени компиляции
 	$compile_time = date("Y-m-d H:i:s");
 
-
 	// Установка пустого кода
-	$code_content = "";
-
+	$code_content = $str_start;
 
 	// Добавление начальной информации
 	$code_content .= addCommentLine(" WAFLE Engine Compiler! ");
@@ -28,6 +26,8 @@ function compileAndPrint($scripts_loader_query) {
 	foreach ($scripts_loader_query as $script_path) {
 		$code_content .= insertScript($script_path);
 	}
+
+	$code_content .= $str_end;
 
 	// Сохранение скомпилированного кода
 	file_put_contents($compiled_filename, $code_content);
