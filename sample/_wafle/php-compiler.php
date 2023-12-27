@@ -53,7 +53,8 @@ compileAndPrint(array(
 	"core.php",
 
 	"modules/api-data.php",
-	"modules/api-funcs.php"
+	"modules/api-funcs.php",
+	"modules/mysql-system.php"
 
 ), "<?php\n", "\n?>");
 
