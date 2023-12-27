@@ -3,33 +3,12 @@
 	// Данные для БД
 	$default_db = null; // БД по умолчанию
 
-	$db_host = "127.0.0.1";
-	$db_user = "root";
-	$db_pass = "";
-	$db_name = "test_db";
 
-	$db_dsn = "mysql:host=$db_host;dbname=$db_name";
+	$db = db_connect("test_db", "127.0.0.1", "root", "");
 
-	$db_opts = [
-		PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-	];
-
-	$db = new PDO($db_dsn, $db_user, $db_pass, $db_opts);
-
-
-
-/*
-	$result = $db -> query("SELECT * FROM users");
-	$result = $result -> fetchAll();
-	//$result -> fetch();
-	*/
-
-	$result = $db -> prepare("SELECT * FROM users WHERE nick = :nick");
-	$result -> execute(array(
-		"nick" => "cote"
+	$result = db_fetch_one($db, "SELECT * FROM users WHERE role = :role", array(
+		"role" => "user"
 	));
-	$result = $result -> fetchAll();
-
 
 	print_r($result);
 
