@@ -18,9 +18,18 @@
 
 
 
+/*
 	$result = $db -> query("SELECT * FROM users");
 	$result = $result -> fetchAll();
 	//$result -> fetch();
+	*/
+
+	$result = $db -> prepare("SELECT * FROM users WHERE nick = :nick");
+	$result -> execute(array(
+		"nick" => "cote"
+	));
+	$result = $result -> fetchAll();
+
 
 	print_r($result);
 
