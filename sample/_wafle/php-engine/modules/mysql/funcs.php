@@ -16,7 +16,7 @@
 
 
 	// Функция выполняет запрос
-	function db_query($pdo, $query, $placeholders) {
+	function db_query($pdo, $query, $placeholders = array()) {
 		$result = $pdo -> prepare($query);
 		$result -> execute($placeholders);
 		
@@ -25,7 +25,7 @@
 
 
 	// Функция возвращает одну строку
-	function db_fetch_one($pdo, $query, $placeholders) {
+	function db_fetch_one($pdo, $query, $placeholders = array()) {
 		$result = $pdo -> prepare($query);
 		$result -> execute($placeholders);
 		
@@ -34,7 +34,7 @@
 
 
 	// Функция возвращает произвольное кол-во строк
-	function db_fetch_all($pdo, $query, $placeholders) {
+	function db_fetch_all($pdo, $query, $placeholders = array()) {
 		$result = $pdo -> prepare($query);
 		$result -> execute($placeholders);
 		

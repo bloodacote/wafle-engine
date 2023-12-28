@@ -9,15 +9,16 @@
 $site_dir = $_SERVER["DOCUMENT_ROOT"];
 $engine_dir = __DIR__ . "\php-engine";
 $compiler_tools_dir = __DIR__ . "\compiler-tools";
+$info_file = __DIR__ . "\main-info.json";
 
 $compiled_filename = $site_dir . "\wafle-runner.php";
 
 
 
 // Подключение инструментов компилятора
-include $compiler_tools_dir . "\\modifiers.php";
-include $compiler_tools_dir . "\\regex-funcs.php";
-include $compiler_tools_dir . "\\compile.php";
+require $compiler_tools_dir . "\\modifiers.php";
+require $compiler_tools_dir . "\\regex-funcs.php";
+require $compiler_tools_dir . "\\compile.php";
 
 
 
@@ -49,12 +50,16 @@ function insertScript($script_path) {
 
 // Загрузка PHP-скриптов и их компиляция
 compileAndPrint(array(
-
 	"core.php",
 
-	"modules/api-data.php",
-	"modules/api-funcs.php",
-	"modules/mysql-system.php"
+	"modules/api/data.php",
+	"modules/api/funcs.php",
+
+	"modules/mysql/system.php",
+	"modules/mysql/funcs.php",
+
+	"modules/secure/jwt.php",
+	"modules/secure/passhash.php"
 
 ), "<?php\n", "\n?>");
 

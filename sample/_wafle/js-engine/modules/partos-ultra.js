@@ -6,7 +6,7 @@
 class EditableElem {
 	constructor(elem) {
 		this.selector = null;
-		this.element = elemize(elem);
+		this.element = toElem(elem);
 		this.parent = null;
 
 		this.init();
@@ -25,7 +25,7 @@ class EditableElem {
 
 	// Поставить внутрь элемента
 	place(parentElem) {
-		parentElem = elemize(parentElem);
+		parentElem = toElem(parentElem);
 
 		parentElem.appendChild(this.element);
 		this.init();
@@ -33,7 +33,7 @@ class EditableElem {
 
 	// Поставить перед элементом
 	insertBefore(otherElem) {
-		otherElem = elemize(otherElem);
+		otherElem = toElem(otherElem);
 		var parentElem = otherElem.parentNode;
 
 		parentElem.insertBefore(this.element, otherElem);
@@ -42,11 +42,11 @@ class EditableElem {
 
 	// Поставить после элемента
 	insertAfter(otherElem) {
-		otherElem = elemize(otherElem);
+		otherElem = toElem(otherElem);
 		var parentElem = otherElem.parentNode;
 
 		this.insertBefore(otherElem);
-		edit(otherElem).insertBefore(this);
+		toEdit(otherElem).insertBefore(this);
 		this.init();
 	}
 
@@ -197,7 +197,7 @@ function selectorSplit(selector) {
 
 
 // Функция превращает селектор/элемент/модэлем в элемент
-function elemize(elem) {
+function toElem(elem) {
 
 	// Модэлем -> элемент
 	if (elem instanceof EditableElem) {
@@ -214,7 +214,7 @@ function elemize(elem) {
 
 
 // Функция превращает селектор/элемент/модэлем в модэлем
-function edit(elem) {
+function toEdit(elem) {
 
 	// Модэлем -> элемент
 	if (elem instanceof EditableElem) {
@@ -222,7 +222,7 @@ function edit(elem) {
 
 	// Селектор/элемент -> элемент
 	} else {
-		elem = elemize(elem);
+		elem = toElem(elem);
 	}
 
 	var newElem = new EditableElem(elem);
@@ -239,7 +239,7 @@ function addElem(selector, content = null, parent = null) {
 	newElem.innerHTML = content;
 
 	if (parent != null) {
-		elemize(parent).appendChild(newElem);
+		toElem(parent).appendChild(newElem);
 	}
 
 	return newElem;
