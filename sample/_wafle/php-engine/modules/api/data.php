@@ -4,6 +4,7 @@
 	// Инициализация данных
 	$output = null;
 	$status = 200;
+	$root_dir = $_SERVER["DOCUMENT_ROOT"];
 	$method = $_SERVER["REQUEST_METHOD"];
 	$error_list = array();
 

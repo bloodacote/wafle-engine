@@ -11,9 +11,6 @@ $engine_dir = __DIR__ . "\php-engine";
 $compiler_tools_dir = __DIR__ . "\compiler-tools";
 $info_file = __DIR__ . "\main-info.json";
 
-$compiled_filename = $site_dir . "\wafle-runner.php";
-
-
 
 // Подключение инструментов компилятора
 require $compiler_tools_dir . "\\modifiers.php";
@@ -34,8 +31,8 @@ function insertScript($script_path) {
 	$script_path = str_replace("/", "\\", $script_path);
 
 	$script_content = file_get_contents($script_path);
-	$script_content = $compile_mods -> clearPhpBorders($script_content);
 	$script_content = $compile_mods -> eraseComments($script_content);
+	$script_content = $compile_mods -> clearPhpBorders($script_content);
 	$script_content = $compile_mods -> eraseLines($script_content);
 
 	$code_content .= $script_content;
@@ -47,6 +44,8 @@ function insertScript($script_path) {
 	Компиляция
 - - - - - - - - - - - - - - */
 
+// Установка пустого кода
+$code_content = "";
 
 // Загрузка PHP-скриптов и их компиляция
 compileAndPrint(array(
@@ -61,6 +60,6 @@ compileAndPrint(array(
 	"modules/secure/jwt.php",
 	"modules/secure/passhash.php"
 
-), "<?php\n", "\n?>");
+), "", "");
 
 ?>

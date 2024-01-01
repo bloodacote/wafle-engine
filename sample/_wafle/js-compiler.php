@@ -10,9 +10,6 @@ $engine_dir = __DIR__ . "\js-engine";
 $compiler_tools_dir = __DIR__ . "\compiler-tools";
 $info_file = __DIR__ . "\main-info.json";
 
-$compiled_filename = $site_dir . "\wafle-runner.js";
-
-
 
 // Подключение инструментов компилятора
 require $compiler_tools_dir . "\\modifiers.php";

@@ -35,7 +35,7 @@ class compilerModifier {
 	// Очищение от PHP-границ
 	public function clearPhpBorders($content) {
 
-		$pattern = '/<\?php|\?>/';
+		$pattern = '/^<\?php|\?>$/';
 		$content = preg_replace($pattern, "", $content);
 
 		return $content;

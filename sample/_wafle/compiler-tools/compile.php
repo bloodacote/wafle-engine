@@ -3,7 +3,7 @@
 
 // Добавление строки
 function addCommentLine($text) {
-	return nl2br("//$text") . "\n";
+	return "//$text\n";
 }
 
 
@@ -49,7 +49,7 @@ function compileAndPrint($scripts_loader_query, $str_start, $str_end) {
 	);
 
 
-	// Загрузка JS-скриптов по очереди
+	// Загрузка скриптов по очереди
 	foreach ($scripts_loader_query as $script_path) {
 		$code_content .= insertScript($script_path);
 	}
@@ -60,14 +60,7 @@ function compileAndPrint($scripts_loader_query, $str_start, $str_end) {
 	//--  --  --  --  --  --  --  --  --
 
 	// Сохранение скомпилированного кода
-	file_put_contents($compiled_filename, $code_content);
-
-	// Вывод о том, что всё прошло успешно
-	echo "
-	+- - - - - - - - - - - - -+
-	Компиляция прошла успешно!
-	+- - - - - - - - - - - - -+
-	";
+	echo $code_content;
 
 }
 
