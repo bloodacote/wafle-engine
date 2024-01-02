@@ -148,6 +148,18 @@ class EditableElem {
 	removeClass(className) {
 		this.element.classList.remove(className);
 	}
+
+	//- - - - - - - - - - - - - - - - - - -
+	//    ПАРАМЕТРЫ
+	//- - - - - - - - - - - - - - - - - - -
+
+	setParam(key, value) {
+		this.element.setAttribute(key, value);
+	}
+
+	getParam(key) {
+		return this.element.getAttribute(key);
+	}
 }
 
 
