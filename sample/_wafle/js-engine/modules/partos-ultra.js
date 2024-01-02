@@ -14,6 +14,7 @@ class EditableElem {
 
 	// Инициализация / Установка нового селектора
 	init() {
+		this.selector = this.getSelector();
 		this.parent = this.element.parentNode;
 	}
 
@@ -241,6 +242,7 @@ function toEdit(elem) {
 	return newElem;
 }
 
+
 // Функция создаёт элемент по селектору
 function addElem(selector, content = null, parent = null) {
 	var selectorInfo = selectorSplit(selector);
@@ -256,6 +258,22 @@ function addElem(selector, content = null, parent = null) {
 
 	return newElem;
 }
+
+
+// Функция создаёт элемент по образу модэлема
+function cloneElem(origElem, parent = null, elemId = "") {
+	origElem = toEdit(origElem);
+
+	var newElem = addElem(
+		origElem.selector,
+		origElem.getHTML,
+		parent
+	);
+
+	newElem.id = elemId;
+	return newElem;
+}
+
 
 // - - - - - - - - - - - - - - - - -
 wafle.say(`(PartOS Ultra) loaded`);
