@@ -4,7 +4,7 @@
     --app-col: #976f50;
     --btn-col: #ffd0b3;
 
-    --text-font: "Consolas";
+    --text-font: "Trebuchet MS";
     --text-size: 14pt;
     --text-col: #915943;
 }
@@ -24,7 +24,7 @@ html{
 }
 
 body{
-	width: 800px;
+	width: 600px;
 	height: 80%;
 	padding: 10px 0;
 
@@ -34,6 +34,7 @@ body{
 
 	background: var(--app-col);
 	border-radius: 4px;
+	box-shadow: 10px 0px 40px rgba(0,0,0,0.3);
 }
 
 article{
@@ -77,10 +78,13 @@ button{
 
 button:hover{
 	box-shadow: 0px 3px 15px rgba(0,0,0,0.3);
+	filter: brightness(1.1);
 }
 
 h1{
 	color: var(--btn-col);
+	text-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
