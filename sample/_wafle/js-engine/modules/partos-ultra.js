@@ -20,7 +20,7 @@ class EditableElem {
 
 
 	//- - - - - - - - - - - - - - - - - - -
-	//    ПЕРЕДВИЖЕНИЕ МОДЭЛЕМА
+	//    РАБОТА С DOM-ДЕРЕВОМ (ПЕРЕДВИЖЕНИЕ И ДОЧЕРНИЕ ЭЛЕМЕНТЫ)
 	//- - - - - - - - - - - - - - - - - - -
 
 
@@ -51,16 +51,20 @@ class EditableElem {
 		this.init();
 	}
 
+	// Найти элемент по селектору внутри модэлема
+	find(selector) {
+		return this.element.querySelector(selector);
+	}
+
 
 	//- - - - - - - - - - - - - - - - - - -
-	//    КОНТЕНТ
+	//    РАБОТА С КОНТЕНТОМ
 	//- - - - - - - - - - - - - - - - - - -
 
 
 	// Быстро получить innerHTML
 	getContent() {
-		var content = this.element.innerHTML;
-		return content;
+		return this.element.innerHTML;
 	}
 
 	// Быстро добавить innerHTML
@@ -71,6 +75,16 @@ class EditableElem {
 	// Быстро добавить innerText
 	setText(content) {
 		this.element.innerText = content;
+	}
+
+	// Быстро получить value
+	getValue() {
+		return this.element.value;
+	}
+
+	// Быстро добавить value
+	setValue(val) {
+		this.element.value = val;
 	}
 
 	// Заменить части текста
@@ -270,6 +284,7 @@ function cloneElem(origElem, parent = null, elemId = "") {
 		parent
 	);
 
+	newElem.value = origElem.getValue();
 	newElem.id = elemId;
 	return newElem;
 }
