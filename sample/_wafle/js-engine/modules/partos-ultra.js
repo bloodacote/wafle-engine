@@ -8,6 +8,13 @@ class EditableElem {
 		this.selector = null;
 		this.element = toElem(elem);
 		this.parent = null;
+		this.func = {
+			// Тестовая функция
+			change: () => {
+				this.setText("HTML!");
+				this.setValue("Value!");
+			}
+		};
 
 		this.init();
 	}
