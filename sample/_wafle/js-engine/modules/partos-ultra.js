@@ -8,13 +8,7 @@ class EditableElem {
 		this.selector = null;
 		this.element = toElem(elem);
 		this.parent = null;
-		this.func = {
-			// Тестовая функция
-			change: () => {
-				this.setText("HTML!");
-				this.setValue("Value!");
-			}
-		};
+		this.func = {};
 
 		this.init();
 	}
@@ -182,6 +176,18 @@ class EditableElem {
 	getParam(key) {
 		return this.element.getAttribute(key);
 	}
+
+	//- - - - - - - - - - - - - - - - - - -
+	//    РАБОТА С ВНУТРЕННИМИ ФУНКЦИЯМИ
+	//- - - - - - - - - - - - - - - - - - -
+
+	addFunc(key, func) {
+		this.func[key] = func.bind(this);
+	}
+
+	removeFunc(key) {
+		this.func[key] = undefined;
+	}
 }
 
 
@@ -252,15 +258,14 @@ function toEdit(elem) {
 
 	// Модэлем -> элемент
 	if (elem instanceof EditableElem) {
-		elem = elem.element;
+		elem = elem;
 
 	// Селектор/элемент -> элемент
 	} else {
-		elem = toElem(elem);
+		elem = new EditableElem(elem);
 	}
 
-	var newElem = new EditableElem(elem);
-	return newElem;
+	return elem;
 }
 
 
@@ -271,7 +276,18 @@ function addElem(selector, content = null, parent = null) {
 	var newElem = document.createElement(selectorInfo.tag);
 	newElem.id = selectorInfo.id;
 	newElem.classList.value = selectorInfo.classes.join(" ");
+
 	newElem.innerHTML = content;
+	if (newElem.innerHTML == null) {
+		newElem.value = content;
+	}
+	
+	/*
+	for (let [funcKey, funcAct] of Object.entries(funcs)) {
+		//console.log(`KEY: ${funcKey} - FUNC: ${funcAct}`);
+		newElem.func[funcKey] = funcAct.bind(this);
+	}
+	*/
 
 	if (parent != null) {
 		toElem(parent).appendChild(newElem);
