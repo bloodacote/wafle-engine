@@ -52,9 +52,15 @@ class EditableElem {
 		this.init();
 	}
 
-	// Найти элемент по селектору внутри модэлема
+	// Найти элемент(ы) по селектору внутри модэлема
 	find(selector) {
-		return this.element.querySelector(selector);
+		var elem = this.element.querySelectorAll(selector);
+
+		if (elem.length == 1) {
+			elem = elem[0];
+		}
+
+		return elem;
 	}
 
 
@@ -236,7 +242,7 @@ function selectorSplit(selector) {
 }
 
 
-// Функция превращает селектор/элемент/модэлем в элемент
+// Функция превращает селектор/элемент/модэлем в элемент(ы)
 function toElem(elem) {
 
 	// Модэлем -> элемент
@@ -244,9 +250,13 @@ function toElem(elem) {
 		elem = elem.element;
 	}
 
-	// Селектор -> элемент
+	// Селектор -> элемент(ы)
 	if (typeof(elem) == "string") {
-		elem = document.querySelector(elem);
+		elem = document.querySelectorAll(elem);
+
+		if (elem.length == 1) {
+			elem = elem[0];
+		}
 	}
 
 	return elem;
@@ -281,19 +291,26 @@ function addElem(selector, content = null, parent = null) {
 	if (newElem.innerHTML == null) {
 		newElem.value = content;
 	}
-	
-	/*
-	for (let [funcKey, funcAct] of Object.entries(funcs)) {
-		//console.log(`KEY: ${funcKey} - FUNC: ${funcAct}`);
-		newElem.func[funcKey] = funcAct.bind(this);
-	}
-	*/
 
 	if (parent != null) {
 		toElem(parent).appendChild(newElem);
 	}
 
 	return newElem;
+}
+
+
+// Функция создаёт модэлем по селектору
+function addEdit(selector, content = null, parent = null, funcs = {}) {
+	var newEdit = addElem(selector, content, parent);
+	newEdit = toEdit(newEdit);
+
+	// Добавление функций
+	for (let [funcKey, funcAct] of Object.entries(funcs)) {
+		newEdit.addFunc(funcKey, funcAct);
+	}
+
+	return newEdit;
 }
 
 
@@ -310,6 +327,22 @@ function cloneElem(origElem, parent = null, elemId = "") {
 	newElem.value = origElem.getValue();
 	newElem.id = elemId;
 	return newElem;
+}
+
+// Функция создаёт эдит по образу эдита
+function cloneEdit(origEdit, parent = null, elemId = "") {
+	origEdit = toEdit(origEdit);
+
+	var newEdit = addEdit(
+		origEdit.selector,
+		origEdit.getHTML,
+		parent,
+		origEdit.funcs
+	);
+
+	newEdit.value = origEdit.getValue();
+	newEdit.id = elemId;
+	return newEdit;
 }
 
 
