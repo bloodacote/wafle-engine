@@ -1,7 +1,7 @@
 <?php
 
 	// Функция создаёт PDO для базы данных
-	function db_connect($db_name, $db_host = "127.0.0.1", $db_user = "root", $db_pass = "") {
+	function db_connect($db_host = "127.0.0.1", $db_user = "root", $db_pass = "", $db_name) {
 
 		// Настройки
 		$db_dsn = "mysql:host=$db_host;dbname=$db_name";
