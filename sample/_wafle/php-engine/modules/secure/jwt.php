@@ -39,8 +39,12 @@
 	function jwt_degen($token, $secret_key) {
 		$token_parts = explode(".", $token);
 
-		if (count($token_parts) !== 3) {
-	        return false; // Некорректный формат токена
+		if ($token == "") {
+			add_error(500, "no-token");
+		}
+
+		if (count($token_parts) != 3) {
+			add_error(500, "wrong-token-format");
 	    }
 
 	    // Иниц данных

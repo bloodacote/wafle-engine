@@ -28,7 +28,11 @@
 	function set_output($key, $value) {
 		global $output;
 
-		$output[$key] = $value;
+		if ($key == null) {
+			$output = $value;
+		} else {
+			$output[$key] = $value;
+		}
 	}
 
 

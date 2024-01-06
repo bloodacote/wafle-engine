@@ -82,15 +82,35 @@ async function loadAPI(url, data = null, method = "POST", headers = {}) {
 // - - - - - - - - - - - -
 // Функция загрузки JSON-файла
 async function loadJSON(url) {
-	var jsonData = await loadURL("GET", url);
+	var jsonData = await loadURL(url, null, "GET");
 
 	try {
 		jsonData = JSON.parse(jsonData);
 		return jsonData;
 
 	} catch (err) {
-		wafle.say(`JSON имеет неверный формат! [${url}]`, "error");
+		wafle.say(`JSON имеет неверный формат! [${url}] Вывод: ${jsonData}`, "error");
 	}
+}
+
+
+
+// - - - - - - - - - - - -
+// Функция загрузки скриптов HTML-страницы
+async function runScriptsFromHTML(pageText) {
+	var startIndex = pageText.indexOf('<script>');
+	var endIndex = pageText.indexOf('</script>', startIndex);
+
+	while (startIndex !== -1 && endIndex !== -1) {
+
+		var scriptCode = pageText.substring(startIndex + 8, endIndex);
+		eval(scriptCode);
+
+		startIndex = pageText.indexOf('<script>', endIndex);
+		endIndex = pageText.indexOf('</script>', startIndex);
+	}
+
+	return pageText;
 }
 
 

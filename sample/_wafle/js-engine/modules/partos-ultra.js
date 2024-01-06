@@ -280,7 +280,7 @@ function toEdit(elem) {
 
 
 // Функция создаёт элемент по селектору
-function addElem(selector, content = null, parent = null) {
+function newElem(selector, parent = null, content = null) {
 	var selectorInfo = selectorSplit(selector);
 
 	var newElem = document.createElement(selectorInfo.tag);
@@ -301,8 +301,8 @@ function addElem(selector, content = null, parent = null) {
 
 
 // Функция создаёт модэлем по селектору
-function addEdit(selector, content = null, parent = null, funcs = {}) {
-	var newEdit = addElem(selector, content, parent);
+function newEdit(selector, parent = null, content = null, funcs = {}) {
+	var newEdit = newElem(selector, parent, content);
 	newEdit = toEdit(newEdit);
 
 	// Добавление функций
@@ -318,10 +318,10 @@ function addEdit(selector, content = null, parent = null, funcs = {}) {
 function cloneElem(origElem, parent = null, elemId = "") {
 	origElem = toEdit(origElem);
 
-	var newElem = addElem(
+	var newElem = newElem(
 		origElem.selector,
-		origElem.getHTML,
-		parent
+		parent,
+		origElem.getHTML
 	);
 
 	newElem.value = origElem.getValue();
@@ -333,10 +333,10 @@ function cloneElem(origElem, parent = null, elemId = "") {
 function cloneEdit(origEdit, parent = null, elemId = "") {
 	origEdit = toEdit(origEdit);
 
-	var newEdit = addEdit(
+	var newEdit = newEdit(
 		origEdit.selector,
-		origEdit.getHTML,
 		parent,
+		origEdit.getHTML,
 		origEdit.funcs
 	);
 

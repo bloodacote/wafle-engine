@@ -49,7 +49,9 @@ compileAndPrint(array(
 	
 	"/core.js",
 	"/modules/load-funcs.js",
-	"/modules/partos-ultra.js"
+	"/modules/partos-ultra.js",
+	"/modules/cookie-work.js",
+	"/modules/easy-link.js"
 
 ), "", "");
 
