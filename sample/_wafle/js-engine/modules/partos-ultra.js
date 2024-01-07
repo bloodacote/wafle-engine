@@ -63,6 +63,11 @@ class EditableElem {
 		return elem;
 	}
 
+	// Удалить элемент
+	delete() {
+		this.parent.removeChild(this.element);
+	}
+
 
 	//- - - - - - - - - - - - - - - - - - -
 	//    РАБОТА С КОНТЕНТОМ
@@ -287,13 +292,13 @@ function newElem(selector, parent = null, content = null) {
 	newElem.id = selectorInfo.id;
 	newElem.classList.value = selectorInfo.classes.join(" ");
 
+	if (parent != null) {
+		toElem(parent).appendChild(newElem);
+	}
+
 	newElem.innerHTML = content;
 	if (newElem.innerHTML == null) {
 		newElem.value = content;
-	}
-
-	if (parent != null) {
-		toElem(parent).appendChild(newElem);
 	}
 
 	return newElem;
@@ -302,15 +307,15 @@ function newElem(selector, parent = null, content = null) {
 
 // Функция создаёт модэлем по селектору
 function newEdit(selector, parent = null, content = null, funcs = {}) {
-	var newEdit = newElem(selector, parent, content);
-	newEdit = toEdit(newEdit);
+	var clonedEdit = newElem(selector, parent, content);
+	clonedEdit = toEdit(clonedEdit);
 
 	// Добавление функций
 	for (let [funcKey, funcAct] of Object.entries(funcs)) {
-		newEdit.addFunc(funcKey, funcAct);
+		clonedEdit.addFunc(funcKey, funcAct);
 	}
 
-	return newEdit;
+	return clonedEdit;
 }
 
 
@@ -318,15 +323,15 @@ function newEdit(selector, parent = null, content = null, funcs = {}) {
 function cloneElem(origElem, parent = null, elemId = "") {
 	origElem = toEdit(origElem);
 
-	var newElem = newElem(
+	var clonedElem = newElem(
 		origElem.selector,
 		parent,
 		origElem.getHTML
 	);
 
-	newElem.value = origElem.getValue();
-	newElem.id = elemId;
-	return newElem;
+	clonedElem.value = origElem.getValue();
+	clonedElem.id = elemId;
+	return clonedElem;
 }
 
 // Функция создаёт эдит по образу эдита
