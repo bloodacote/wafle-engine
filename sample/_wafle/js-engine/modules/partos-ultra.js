@@ -9,6 +9,7 @@ class EditableElem {
 		this.element = toElem(elem);
 		this.parent = null;
 		this.func = {};
+		this.events = {};
 
 		this.init();
 	}
@@ -199,6 +200,16 @@ class EditableElem {
 	removeFunc(key) {
 		this.func[key] = undefined;
 	}
+
+	//- - - - - - - - - - - - - - - - - - -
+	//    ДЕЙСТВИЯ
+	//- - - - - - - - - - - - - - - - - - -
+
+	// Функция добавляет элему действие
+	setEvent(type, func) {
+		this.events[type] = func;
+		this.element[type] = func;
+	}
 }
 
 
@@ -306,13 +317,18 @@ function newElem(selector, parent = null, content = null) {
 
 
 // Функция создаёт модэлем по селектору
-function newEdit(selector, parent = null, content = null, funcs = {}) {
+function newEdit(selector, parent = null, content = null, funcs = {}, events = {}) {
 	var clonedEdit = newElem(selector, parent, content);
 	clonedEdit = toEdit(clonedEdit);
 
 	// Добавление функций
 	for (let [funcKey, funcAct] of Object.entries(funcs)) {
 		clonedEdit.addFunc(funcKey, funcAct);
+	}
+
+	// Добавление ивентов
+	for (let [eventKey, eventFunc] of Object.entries(events)) {
+		clonedEdit.setEvent(eventKey, eventFunc);
 	}
 
 	return clonedEdit;
@@ -338,16 +354,17 @@ function cloneElem(origElem, parent = null, elemId = "") {
 function cloneEdit(origEdit, parent = null, elemId = "") {
 	origEdit = toEdit(origEdit);
 
-	var newEdit = newEdit(
+	var clonedEdit = newEdit(
 		origEdit.selector,
 		parent,
 		origEdit.getHTML,
-		origEdit.funcs
+		origEdit.funcs,
+		origEdit.events
 	);
 
-	newEdit.value = origEdit.getValue();
-	newEdit.id = elemId;
-	return newEdit;
+	clonedEdit.value = origEdit.getValue();
+	clonedEdit.id = elemId;
+	return clonedEdit;
 }
 
 
