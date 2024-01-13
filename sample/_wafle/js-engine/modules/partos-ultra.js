@@ -285,6 +285,17 @@ function toEdit(elem) {
 	// Модэлем -> элемент
 	if (elem instanceof EditableElem) {
 		elem = elem;
+	}
+	elem = toElem(elem);
+
+	// Список элементов -> список модэлемов
+	if (elem instanceof NodeList) {
+		var elemList = elem;
+		elem = [];
+
+		for (let elemPart of elemList) {
+			elem.push(toEdit(elemPart));
+		}
 
 	// Селектор/элемент -> элемент
 	} else {
