@@ -91,7 +91,7 @@
 
 			// Проверка на длину переменной
 			} elseif ($check_value_type == "string") {
-				$check_value_len = strlen($check_value);
+				$check_value_len = mb_strlen($check_value);
 
 				if ($check_value_len < $min_length and $min_length != null) {
 					add_error(422, "input-too-short--$key");
