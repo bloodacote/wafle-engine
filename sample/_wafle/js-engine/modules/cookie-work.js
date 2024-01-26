@@ -41,7 +41,7 @@ function getCookie(key) {
 
 
 // Функция очищает ВСЕ куки
-function clearCookie(key = null) {
+function clearAllCookies(key = null) {
 
 	if (key != null) {
 		setCookie(key, null, "/", "Thu, 01 Jan 1970 00:00:00 UTC");

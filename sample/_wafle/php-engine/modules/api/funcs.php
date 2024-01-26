@@ -89,7 +89,18 @@
 			if ($type != $check_value_type and $type != null) {
 				add_error(422, "input-wrong-type--$key");
 
-			// Проверка на длину переменной
+			// Проверка на длину числа
+			} elseif ($check_value_type == "integer") {
+				
+				if ($check_value < $min_length and $min_length != null) {
+					add_error(422, "input-too-short--$key");
+				}
+
+				if ($check_value > $max_length and $max_length != null) {
+					add_error(422, "input-too-long--$key");
+				}
+
+			// Проверка на длину строки
 			} elseif ($check_value_type == "string") {
 				$check_value_len = mb_strlen($check_value);
 
@@ -104,6 +115,50 @@
 
 		} else {
 			add_error(422, "input-no-value--$key");
+		}
+	}
+
+	// Функция проверяет введённые данные
+	function optional_user_input($key, $type = null, $default_value = null, $min_length = null, $max_length = null) {
+		global $input;
+
+		// Проверка существования данных
+		if (array_key_exists($key, $input)) {
+
+			// То, что будем проверять
+			$check_value = $input[$key];
+			$check_value_type = gettype($check_value);
+
+			// Проверка на тип переменной
+			if ($type != $check_value_type and $type != null) {
+				add_error(422, "input-wrong-type--$key");
+
+			// Проверка на длину числа
+			} elseif ($check_value_type == "integer") {
+				
+				if ($check_value < $min_length and $min_length != null) {
+					add_error(422, "input-too-short--$key");
+				}
+
+				if ($check_value > $max_length and $max_length != null) {
+					add_error(422, "input-too-long--$key");
+				}
+
+			// Проверка на длину строки
+			} elseif ($check_value_type == "string") {
+				$check_value_len = mb_strlen($check_value);
+
+				if ($check_value_len < $min_length and $min_length != null) {
+					add_error(422, "input-too-short--$key");
+				}
+
+				if ($check_value_len > $max_length and $max_length != null) {
+					add_error(422, "input-too-long--$key");
+				}
+			}
+
+		} else {
+			$input[$key] = $default_value;
 		}
 	}
 

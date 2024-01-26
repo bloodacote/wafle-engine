@@ -35,6 +35,14 @@
 
 	// Функция возвращает одну строку
 	function db_fetch_one($pdo, $query, $placeholders = array()) {
+
+		foreach ($placeholders as $input => $value) {
+			if (gettype($value) == "integer") {
+				$query = str_replace(":" . $input, $value, $query);
+				unset($placeholders[$input]);
+			}
+		}
+
 		$result = $pdo -> prepare($query);
 		$result -> execute($placeholders);
 		
@@ -44,6 +52,14 @@
 
 	// Функция возвращает произвольное кол-во строк
 	function db_fetch_all($pdo, $query, $placeholders = array()) {
+
+		foreach ($placeholders as $input => $value) {
+			if (gettype($value) == "integer") {
+				$query = str_replace(":" . $input, $value, $query);
+				unset($placeholders[$input]);
+			}
+		}
+
 		$result = $pdo -> prepare($query);
 		$result -> execute($placeholders);
 		

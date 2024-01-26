@@ -75,7 +75,7 @@ function getLinkParts(link = window.location.pathname) {
 
 
 // Функция загрузить страницу
-function gotoLink(url) {
+function setLink(url) {
 	window.location.href = url;
 }
 
